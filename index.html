@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Этапы создания телеканала</title>
+  <script src="https://cdn.tailwindcss.com "></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+
+  <!-- Header -->
+  <header class="text-center py-12 px-6">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+      Этапы создания телеканала
+    </h1>
+    <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+      Полный путь от идеи до полноценного вещания.
+    </p>
+  </header>
+
+  <!-- Steps Navigation -->
+  <nav class="max-w-4xl mx-auto px-6 mb-12">
+    <ul class="flex flex-wrap justify-center gap-4">
+      <li><button onclick="showSection(1)" class="px-4 py-2 rounded-full bg-indigo-600 text-white shadow-lg">Этап 1</button></li>
+      <li><button onclick="showSection(2)" class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-gray-200 transition">Этап 2</button></li>
+      <li><button onclick="showSection(3)" class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-gray-200 transition">Этап 3</button></li>
+      <li><button onclick="showSection(4)" class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-gray-200 transition">Этап 4</button></li>
+      <li><button onclick="showSection(5)" class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-gray-200 transition">Этап 5</button></li>
+    </ul>
+  </nav>
+
+  <!-- Content Section -->
+  <main class="max-w-4xl mx-auto px-6 pb-16">
+    <div id="section-content" class="bg-gray-800 p-8 rounded-xl shadow-2xl border border-gray-700 transition-all duration-300 transform hover:scale-[1.01]">
+      <!-- Dynamic content will be injected here -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-6 text-center text-sm text-gray-500 border-t border-gray-700">
+    &copy; 2025 Проект создания молодёжного телеканала
+  </footer>
+
+  <script>
+    const sections = [
+      {
+        title: "Этап 1: Цель, задачи и название канала",
+        content: [
+          "Знакомство друг с другом, представление проекта молодёжного ТВ.",
+          "Исследование интересов, предпочтений и потребностей молодежи.",
+          "Формулировка миссии и целей канала.",
+          "Определение ключевых рубрик или тем и форматов программ: музыка, школа, игры, мода, культура, социальные проекты и всё, что интересует участников.",
+          "Выбор названия телеканала и рубрик, которые выбрали участники"
+        ]
+      },
+      {
+        title: "Этап 2: Распределение обязанностей",
+        content: [
+          "Тележурналисты: ведение новостей, интервьюирование.",
+          "Редактор: контроль за качеством контента, соблюдением форматов.",
+          "Продюсер: руководство, координация (Елена).",
+          "Оператор: съемка видео, работа с камерами и светом (Илья).",
+          "Звукорежиссёр: работа со звуком, монтаж аудиотреков.",
+          "Монтажёр: нарезка и сведение отснятого материала.",
+          "Сценарист: написание сценариев для программ и репортажей.",
+          "Графический дизайнер: создание оформления, логотипов и анимации.",
+          "Маркетолог: продвижение канала, работа с аудиторией в соцсетях и офлайн.",
+          "Ведущие: лица канала, которые будут представлять программы."
+        ]
+      },
+      {
+        title: "Этап 3: Съёмка и обмен контентом",
+        content: [
+          "Выбор оборудования: камеры, свет, запись звука.",
+          "Создание студии. Обустройство студийного пространства (декор, освещение).",
+          "Проведение репортажей, интервью, съемка постановок.",
+          "Написание сценариев и сюжетов.",
+          "Установление редакционной политики. Введение стандартов качества и этики. Минимальные требования к качеству съёмок и дресскод.",
+          "Использование Телеграмм и файлообменников для системы хранения.",
+          "Безопасность обмена данными внутри сообщества, авторизация и права доступа."
+        ]
+      },
+      {
+        title: "Этап 4: Подготовка контента",
+        content: [
+          "Определение времени выхода программ и форматов (новости, ток-шоу, документалки и пр.).",
+          "Программное обеспечение для видеомонтажа, графики.",
+          "Монтаж репортажей и интервью из отснятого контента.",
+          "Разработка логотипа и заставок оформления телеканала.",
+          "Утверждение шаблонов монтажа для программ, репортажей и интервью."
+        ]
+      },
+      {
+        title: "Этап 5: Тестирование и запуск 1 июля 2025",
+        content: [
+          "Проведение тестовых эфиров в июне. Проверка качества звука и изображения.",
+          "Сбор отзывов от фокус группы перед публикацией контента.",
+          "Запуск канала. Официальное открытие с пресс-релизом, рекламой и специальных мероприятий.",
+          "Реклама через социальные сети, сотрудничество с блогерами и инфлюенсерами.",
+          "Анализ результатов. Составление плана продвижения и развития. Маркетинговая стратегия. Оценка популярности программ, корректировка контента на основе фидбэка."
+        ]
+      }
+    ];
+
+    function showSection(index) {
+      const section = sections[index - 1];
+      const container = document.getElementById("section-content");
+      let html = `<h2 class="text-2xl md:text-3xl font-semibold mb-6 text-indigo-400">${section.title}</h2>`;
+      html += '<ul class="space-y-3 list-disc pl-5 text-gray-200">';
+      section.content.forEach(item => {
+        html += `<li class="leading-relaxed">${item}</li>`;
+      });
+      html += '</ul>';
+      container.innerHTML = html;
+    }
+
+    // Show first section by default
+    showSection(1);
+  </script>
+
+</body>
+</html>
