@@ -1,475 +1,474 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Адаптивное меню с эффектами</title>
-    <script src="https://cdn.tailwindcss.com "></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
-    <style>
-        /* Анимация блика при наведении */
-        .menu-btn, .category-item {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .menu-btn::after, .category-item::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
-            transform: rotate(30deg) translate(-20px, 40px);
-            transition: all 0.5s ease;
-            opacity: 0;
-        }
-        .menu-btn:hover::after, .category-item:hover::after {
-            opacity: 1;
-            transform: rotate(30deg) translate(20px, -40px);
-        }
-        /* Цвета иконок при наведении */
-        .menu-icon {
-            transition: all 0.3s ease;
-            color: #9ca3af;
-        }
-        .news-btn:hover .menu-icon {
-            color: #3b82f6 !important;
-            transform: scale(1.5);
-        }
-        .video-btn:hover .menu-icon {
-            color: #ef4444 !important;
-            transform: scale(1.5);
-        }
-        .categories-btn:hover .menu-icon {
-            color: #10b981 !important;
-            transform: scale(1.5);
-        }
-        /* Выпадающее меню */
-        .dropdown-menu {
-            display: none;
-            animation: fadeIn 0.3s ease forwards;
-        }
-        .dropdown-menu.open {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-        /* Стили для пунктов выпадающего меню */
-        .category-item {
-            transition: all 0.3s ease;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .category-item:hover {
-            background-color: rgba(0, 0, 0, 0.7) !important;
-            transform: scale(1.02);
-        }
-        .category-item:hover .category-text {
-            font-size: 1.05rem;
-        }
-        .category-item.active {
-            background-color: rgba(0, 0, 0, 0.9) !important;
-        }
-        .category-item.active::after {
-            opacity: 1;
-        }
-        /* Иконки категорий */
-        .category-icon {
-            width: 20px;
-            text-align: center;
-            margin-right: 8px;
-            color: #9ca3af;
-            transition: all 0.3s ease;
-        }
-        .category-item:hover .category-icon {
-            transform: scale(1.5);
-        }
-        /* Цвета иконок категорий */
-        .anime .category-icon { color: #8b5cf6 !important; }
-        .games .category-icon { color: #ffd791 !important; }
-        .fashion .category-icon { color: #ec4899 !important; }
-        .music .category-icon { color: #3b82f6 !important; }
-        .movies .category-icon { color: #ef4444 !important; }
-        .netanya .category-icon { color: #5eff00 !important; }
-        .relationships .category-icon { color: #fcff63 !important; }
-        .theater .category-icon { color: #fdba00 !important; }
-        .school .category-icon { color: #14b8a6 !important; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Адаптивное меню</title>
+  <script src="https://cdn.tailwindcss.com "></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css " />
+  <style>
+    /* Анимация блика при наведении */
+    .menu-btn, .category-item {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .menu-btn::after, .category-item::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
+      transform: rotate(30deg) translate(-20px, 40px);
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+    .menu-btn:hover::after, .category-item:hover::after {
+      opacity: 1;
+      transform: rotate(30deg) translate(20px, -40px);
+    }
 
-        /* Фиксированное меню */
-        .header-menu {
-            backdrop-filter: blur(10px);
-        }
+    /* Цвета иконок при наведении */
+    .menu-icon {
+      transition: all 0.3s ease;
+      color: #9ca3af;
+    }
+    .news-btn:hover .menu-icon {
+      color: #3b82f6 !important;
+      transform: scale(1.5);
+    }
+    .video-btn:hover .menu-icon {
+      color: #ef4444 !important;
+      transform: scale(1.5);
+    }
+    .categories-btn:hover .menu-icon {
+      color: #10b981 !important;
+      transform: scale(1.5);
+    }
 
-        /* Для мобильных - скрываем текст в кнопках */
-        @media (max-width: 639px) {
-            .menu-text {
-                display: none;
-            }
-            .dropdown-arrow {
-                display: none;
-            }
-        }
+    /* Выпадающее меню */
+    .dropdown-menu {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .dropdown-menu.open {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
 
-        /* Для десктопов - показываем текст в кнопках */
-        @media (min-width: 640px) {
-            .menu-text {
-                display: inline;
-            }
-            .dropdown-arrow {
-                display: inline;
-            }
-        }
+    /* Стили для пунктов выпадающего меню */
+    .category-item {
+      transition: all 0.3s ease;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .category-item:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+      transform: scale(1.02);
+    }
+    .category-item:hover .category-text {
+      font-size: 1.05rem;
+    }
+    .category-item.active {
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+    .category-item.active::after {
+      opacity: 1;
+    }
 
-        /* Поиск */
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 200px;
-        }
-        .search-results-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 50;
-            width: 100%;
-            max-height: 300px;
-            overflow-y: auto;
-            background-color: #1f2937;
-            border-radius: 0.5rem;
-            padding: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .search-result-item {
-            padding: 8px 10px;
-            margin-bottom: 5px;
-            border-radius: 0.375rem;
-            background-color: rgba(255,255,255,0.05);
-            transition: background-color 0.3s ease;
-        }
-        .search-result-item:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
-        .search-result-title {
-            font-weight: bold;
-            color: white;
-        }
-        .search-result-meta {
-            font-size: 0.75rem;
-            color: #9ca3af;
-        }
-        .search-thumbnail {
-            width: 100%;
-            height: auto;
-            margin-top: 5px;
-            border-radius: 0.375rem;
-        }
-        .category-icon-search {
-            width: 20px;
-            text-align: center;
-            margin-right: 4px;
-            color: #9ca3af;
-        }
-        .video-badge {
-            display: inline-block;
-            width: 20px;
-            text-align: center;
-            margin-left: 6px;
-            color: #ef4444;
-        }
-    </style>
+    /* Иконки категорий */
+    .category-icon {
+      width: 20px;
+      text-align: center;
+      margin-right: 8px;
+      color: #9ca3af;
+      transition: all 0.3s ease;
+    }
+    .category-item:hover .category-icon {
+      transform: scale(1.5);
+    }
+
+    /* Цвета иконок категорий */
+    .anime .category-icon { color: #8b5cf6 !important; }
+    .games .category-icon { color: #ffd791 !important; }
+    .fashion .category-icon { color: #ec4899 !important; }
+    .music .category-icon { color: #3b82f6 !important; }
+    .movies .category-icon { color: #ef4444 !important; }
+    .netanya .category-icon { color: #5eff00 !important; }
+    .relationships .category-icon { color: #fcff63 !important; }
+    .theater .category-icon { color: #fdba00 !important; }
+    .school .category-icon { color: #14b8a6 !important; }
+
+    /* Фиксированное меню */
+    .header-menu {
+      backdrop-filter: blur(10px);
+    }
+
+    /* Для мобильных - скрываем текст в кнопках */
+    @media (max-width: 639px) {
+      .menu-text {
+        display: none;
+      }
+      .dropdown-arrow {
+        display: none;
+      }
+    }
+
+    /* Для десктопов - показываем текст в кнопках */
+    @media (min-width: 640px) {
+      .menu-text {
+        display: inline;
+      }
+      .dropdown-arrow {
+        display: inline;
+      }
+    }
+
+    /* Поиск */
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 200px;
+    }
+    .search-results-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 50;
+      width: 100%;
+      max-height: 300px;
+      overflow-y: auto;
+      background-color: #1f2937;
+      border-radius: 0.5rem;
+      padding: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: none;
+    }
+    .search-result-item {
+      padding: 8px 10px;
+      margin-bottom: 5px;
+      border-radius: 0.375rem;
+      background-color: rgba(255,255,255,0.05);
+      transition: background-color 0.3s ease;
+    }
+    .search-result-item:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    .search-result-title {
+      font-weight: bold;
+      color: white;
+    }
+    .search-result-meta {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    .category-icon-search {
+      width: 20px;
+      text-align: center;
+      margin-right: 4px;
+      color: #9ca3af;
+    }
+    .video-badge {
+      display: inline-block;
+      width: 20px;
+      text-align: center;
+      margin-left: 6px;
+      color: #ef4444;
+    }
+  </style>
 </head>
 <body class="bg-gray-900 text-white">
 
 <!-- Полупрозрачное меню -->
 <header class="header-menu bg-black bg-opacity-70 fixed w-full z-50">
-    <div class="container mx-auto px-4">
-        <nav class="flex items-center justify-between h-16">
-            <!-- Основное меню -->
-            <div class="flex items-center space-x-1 sm:space-x-2">
-                <!-- Новости -->
-                <a href="index.html" class="menu-btn news-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                    <i class="menu-icon fas fa-newspaper text-gray-400 sm:mr-2"></i>
-                    <span class="menu-text">Новости</span>
-                </a>
-                <!-- Видео -->
-                <a href="video.html" class="menu-btn video-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                    <i class="menu-icon fas fa-video text-gray-400 sm:mr-2"></i>
-                    <span class="menu-text">Видео</span>
-                </a>
-                <!-- Рубрики с выпадающим меню -->
-                <div class="dropdown relative">
-                    <button class="menu-btn categories-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                        <i class="menu-icon fas fa-tags text-gray-400 sm:mr-2"></i>
-                        <span class="menu-text">Рубрики</span>
-                        <i class="dropdown-arrow fas fa-chevron-down ml-1 text-xs text-gray-400"></i>
-                    </button>
-                    <!-- Выпадающее меню рубрик -->
-                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-black bg-opacity-80 rounded-md shadow-lg py-1 z-50 backdrop-blur-sm">
-                        <a href="#" class="category-item anime block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-dragon"></i></span>
-                            <span class="category-text">Аниме</span>
-                        </a>
-                        <a href="#" class="category-item games block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-gamepad"></i></span>
-                            <span class="category-text">Игры</span>
-                        </a>
-                        <a href="#" class="category-item fashion block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-tshirt"></i></span>
-                            <span class="category-text">Мода</span>
-                        </a>
-                        <a href="#" class="category-item music block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-music"></i></span>
-                            <span class="category-text">Музыка</span>
-                        </a>
-                        <a href="#" class="category-item movies block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-film"></i></span>
-                            <span class="category-text">Кино</span>
-                        </a>
-                        <a href="#" class="category-item netanya block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-umbrella-beach"></i></span>
-                            <span class="category-text">Нетания</span>
-                        </a>
-                        <a href="#" class="category-item relationships block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-smile"></i></span>
-                            <span class="category-text">Отношения</span>
-                        </a>
-                        <a href="#" class="category-item theater block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-theater-masks"></i></span>
-                            <span class="category-text">Театр</span>
-                        </a>
-                        <a href="#" class="category-item school block px-4 py-2 text-white hover:bg-opacity-70">
-                            <span class="category-icon"><i class="fas fa-graduation-cap"></i></span>
-                            <span class="category-text">Школа</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <div class="container mx-auto px-4">
+    <nav class="flex items-center justify-between h-16">
+      <!-- Основное меню -->
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <!-- Новости -->
+        <a href="index.html" class="menu-btn news-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
+          <i class="menu-icon fas fa-newspaper text-gray-400 sm:mr-2"></i>
+          <span class="menu-text">Новости</span>
+        </a>
+        <!-- Видео -->
+        <a href="video.html" class="menu-btn video-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
+          <i class="menu-icon fas fa-video text-gray-400 sm:mr-2"></i>
+          <span class="menu-text">Видео</span>
+        </a>
+        <!-- Рубрики с выпадающим меню -->
+        <div class="dropdown relative">
+          <button class="menu-btn categories-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
+            <i class="menu-icon fas fa-tags text-gray-400 sm:mr-2"></i>
+            <span class="menu-text">Рубрики</span>
+            <i class="dropdown-arrow fas fa-chevron-down ml-1 text-xs text-gray-400"></i>
+          </button>
+          <!-- Выпадающее меню рубрик -->
+          <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-black bg-opacity-80 rounded-md shadow-lg py-1 z-50 backdrop-blur-sm">
+            <a href="search.html?category=anime" class="category-item anime block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-dragon"></i></span>
+              <span class="category-text">Аниме</span>
+            </a>
+            <a href="search.html?category=games" class="category-item games block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-gamepad"></i></span>
+              <span class="category-text">Игры</span>
+            </a>
+            <a href="search.html?category=fashion" class="category-item fashion block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-tshirt"></i></span>
+              <span class="category-text">Мода</span>
+            </a>
+            <a href="search.html?category=music" class="category-item music block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-music"></i></span>
+              <span class="category-text">Музыка</span>
+            </a>
+            <a href="search.html?category=movies" class="category-item movies block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-film"></i></span>
+              <span class="category-text">Кино</span>
+            </a>
+            <a href="search.html?category=netanya" class="category-item netanya block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-umbrella-beach"></i></span>
+              <span class="category-text">Нетания</span>
+            </a>
+            <a href="search.html?category=relationships" class="category-item relationships block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-smile"></i></span>
+              <span class="category-text">Отношения</span>
+            </a>
+            <a href="search.html?category=theater" class="category-item theater block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-theater-masks"></i></span>
+              <span class="category-text">Театр</span>
+            </a>
+            <a href="search.html?category=school" class="category-item school block px-4 py-2 text-white hover:bg-opacity-70">
+              <span class="category-icon"><i class="fas fa-graduation-cap"></i></span>
+              <span class="category-text">Школа</span>
+            </a>
+          </div>
+        </div>
+      </div>
 
-            <!-- Поиск -->
-            <div class="relative ml-2 search-container">
-                <input type="text" id="searchInput" placeholder="Поиск..." 
-                       class="bg-gray-700 bg-opacity-50 text-white px-4 py-1 rounded-full text-sm 
-                              focus:outline-none focus:ring-1 focus:ring-white focus:bg-opacity-70
-                              w-24 sm:w-40 transition-all duration-300 placeholder-gray-300">
-                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
-                    <i class="fas fa-search"></i>
-                </button>
-                <!-- Результаты поиска -->
-                <div id="searchResults" class="search-results-dropdown hidden"></div>
-            </div>
-        </nav>
-    </div>
+      <!-- Поиск -->
+      <div class="relative ml-2 search-container">
+        <input type="text" id="searchInput" placeholder="Поиск..." 
+               class="bg-gray-700 bg-opacity-50 text-white px-4 py-1 rounded-full text-sm 
+                      focus:outline-none focus:ring-1 focus:ring-white focus:bg-opacity-70
+                      w-24 sm:w-40 transition-all duration-300 placeholder-gray-300">
+        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
+          <i class="fas fa-search"></i>
+        </button>
+        <!-- Результаты поиска -->
+        <div id="searchResults" class="search-results-dropdown"></div>
+      </div>
+    </nav>
+  </div>
 </header>
 
 <!-- Контент страницы -->
 <main class="pt-20 pb-10 px-4">
-    <div class="container mx-auto">
-        <h1 class="text-3xl font-bold mb-6">Адаптивное меню с эффектами</h1>
-        <p class="mb-4">Попробуйте изменить размер окна или ориентацию устройства.</p>
-    </div>
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold mb-6">Адаптивное меню с эффектами</h1>
+    <p class="mb-4">Попробуйте изменить размер окна или ориентацию устройства.</p>
+  </div>
 </main>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const dropdown = document.querySelector('.dropdown');
-        const dropdownButton = document.querySelector('.dropdown button');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        const categoryItems = document.querySelectorAll('.category-item');
+  // Сохраняем поведение меню без изменений
+  document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownButton = document.querySelector('.dropdown button');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    const categoryItems = document.querySelectorAll('.category-item');
 
-        // Открытие/закрытие меню по клику
-        dropdownButton.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (dropdownMenu.classList.contains('open')) {
-                dropdownMenu.classList.remove('open');
-            } else {
-                dropdownMenu.classList.add('open');
-            }
-        });
-
-        // Обработка выбора категории
-        categoryItems.forEach(item => {
-            item.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                categoryItems.forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.category-text').style.fontWeight = 'normal';
-                });
-
-                this.classList.add('active');
-                this.querySelector('.category-text').style.fontWeight = 'bold';
-
-                if (window.innerWidth < 640) {
-                    dropdownMenu.classList.remove('open');
-                }
-            });
-        });
-
-        // Закрытие меню вне клика
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.dropdown')) {
-                dropdownMenu.classList.remove('open');
-            }
-        });
-
-        // Адаптация на ресайз
-        window.addEventListener('resize', function () {
-            if (window.innerWidth >= 640 && dropdownMenu.classList.contains('open')) {
-                dropdownMenu.classList.remove('open');
-            }
-        });
+    // Открытие/закрытие меню по клику
+    dropdownButton.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (dropdownMenu.classList.contains('open')) {
+        dropdownMenu.classList.remove('open');
+      } else {
+        dropdownMenu.classList.add('open');
+      }
     });
 
-    // === ПОИСК ПО СТРАНИЦЕ ===
-    const pages = [
-        "page0525.html",
-        "page0625.html"
-    ];
+    // Обработка выбора категории
+    categoryItems.forEach(item => {
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-    const searchInput = document.getElementById('searchInput');
-    const resultsBox = document.getElementById('searchResults');
-
-    function extractYouTubeID(url) {
-        const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-        const match = url.match(regExp);
-        return (match && match[7] && match[7].length === 11) ? match[7] : false;
-    }
-
-    async function performSearch(query) {
-        if (!query.trim()) {
-            resultsBox.innerHTML = '';
-            resultsBox.classList.add('hidden');
-            return;
-        }
-
-        let foundResults = [];
-
-        for (const page of pages) {
-            try {
-                const response = await fetch(page);
-                const text = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(text, 'text/html');
-
-                const metadata = doc.querySelector('.page-metadata');
-                const title = doc.querySelector('title')?.textContent || page;
-
-                let category = '', author = '', date = '', videoUrl = '', contentText = '';
-
-                if (metadata) {
-                    category = metadata.getAttribute('data-category') || '';
-                    author = metadata.getAttribute('data-author') || '';
-                    date = metadata.getAttribute('data-date') || '';
-                    videoUrl = metadata.getAttribute('data-video') || '';
-                    contentText = metadata.textContent + ' ' + doc.body.textContent;
-                } else {
-                    contentText = doc.body.textContent;
-                }
-
-                const queryLC = query.toLowerCase();
-                const contentLC = contentText.toLowerCase();
-
-                if (contentLC.includes(queryLC)) {
-                    const snippetStart = Math.max(0, contentLC.indexOf(queryLC) - 60);
-                    const snippetEnd = Math.min(contentText.length, contentLC.indexOf(queryLC) + queryLC.length + 120);
-                    const snippet = contentText.slice(snippetStart, snippetEnd);
-
-                    foundResults.push({
-                        url: page,
-                        title: title,
-                        category: category,
-                        author: author,
-                        date: date,
-                        videoUrl: videoUrl,
-                        snippet: snippet.substring(0, 120) + '...'
-                    });
-                }
-            } catch (err) {
-                console.error(`Ошибка загрузки ${page}:`, err);
-            }
-        }
-
-        showResults(foundResults);
-    }
-
-    function getCategoryIcon(category) {
-        switch(category) {
-            case 'Аниме': return '<i class="fas fa-dragon category-icon-search"></i>';
-            case 'Игры': return '<i class="fas fa-gamepad category-icon-search"></i>';
-            case 'Мода': return '<i class="fas fa-tshirt category-icon-search"></i>';
-            case 'Музыка': return '<i class="fas fa-music category-icon-search"></i>';
-            case 'Кино': return '<i class="fas fa-film category-icon-search"></i>';
-            case 'Нетания': return '<i class="fas fa-umbrella-beach category-icon-search"></i>';
-            case 'Отношения': return '<i class="fas fa-smile category-icon-search"></i>';
-            case 'Театр': return '<i class="fas fa-theater-masks category-icon-search"></i>';
-            case 'Школа': return '<i class="fas fa-graduation-cap category-icon-search"></i>';
-            default: return '';
-        }
-    }
-
-    function showResults(results) {
-        resultsBox.innerHTML = "";
-        if (results.length === 0) {
-            resultsBox.classList.remove('hidden');
-            resultsBox.innerHTML = '<div class="text-gray-400 text-sm p-2">Ничего не найдено</div>';
-            return;
-        }
-
-        results.forEach(result => {
-            const item = document.createElement("div");
-            item.className = "search-result-item";
-
-            const icon = getCategoryIcon(result.category);
-            const videoBadge = result.videoUrl ? '<i class="fas fa-video video-badge"></i>' : '';
-
-            let metaHTML = '';
-            if (result.category || result.author || result.date) {
-                metaHTML = `
-                    <div class="search-result-meta">
-                        ${icon} ${result.category}
-                        ${videoBadge}
-                        ${result.author ? ` | Автор: ${result.author}` : ''}
-                        ${result.date ? ` | Дата: ${result.date}` : ''}
-                    </div>
-                `;
-            }
-
-            item.innerHTML = `
-                <a href="${result.url}" target="_blank" class="search-result-title">${result.title}</a>
-                ${metaHTML}
-                <div class="result-snippet">${result.snippet}</div>
-            `;
-
-            resultsBox.appendChild(item);
+        categoryItems.forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.category-text').style.fontWeight = 'normal';
         });
 
-        resultsBox.classList.remove('hidden');
+        this.classList.add('active');
+        this.querySelector('.category-text').style.fontWeight = 'bold';
+
+        if (window.innerWidth < 640) {
+          dropdownMenu.classList.remove('open');
+        }
+      });
+    });
+
+    // Закрытие меню вне клика
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.dropdown')) {
+        dropdownMenu.classList.remove('open');
+      }
+    });
+
+    // Адаптация на ресайз
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 640 && dropdownMenu.classList.contains('open')) {
+        dropdownMenu.classList.remove('open');
+      }
+    });
+  });
+
+  // === ПОИСК ПО СТРАНИЦЕ ===
+  const pages = [
+    "index.html",
+    "video.html",
+    "news.html",
+    "anime.html",
+    "games.html",
+    "fashion.html",
+    "music.html",
+    "movies.html",
+    "netanya.html",
+    "relationships.html",
+    "theater.html",
+    "school.html"
+  ];
+
+  const searchInput = document.getElementById('searchInput');
+  const resultsBox = document.getElementById('searchResults');
+
+  async function performSearch(query) {
+    if (!query.trim()) {
+      resultsBox.innerHTML = '';
+      resultsBox.classList.add('hidden');
+      return;
     }
 
-    searchInput.addEventListener('input', () => {
-        const query = searchInput.value;
-        performSearch(query);
+    let foundResults = [];
+
+    for (const page of pages) {
+      try {
+        const response = await fetch(page);
+        const text = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+
+        const metadata = doc.querySelector('.page-metadata');
+        const title = doc.querySelector('title')?.textContent || page;
+
+        let category = '', author = '', date = '', videoUrl = '', contentText = '';
+
+        if (metadata) {
+          category = metadata.getAttribute('data-category') || '';
+          author = metadata.getAttribute('data-author') || '';
+          date = metadata.getAttribute('data-date') || '';
+          videoUrl = metadata.getAttribute('data-video') || '';
+          contentText = metadata.textContent + ' ' + doc.body.textContent;
+        } else {
+          contentText = doc.body.textContent;
+        }
+
+        const queryLC = query.toLowerCase();
+        const contentLC = contentText.toLowerCase();
+
+        if (contentLC.includes(queryLC)) {
+          const snippetStart = Math.max(0, contentLC.indexOf(queryLC) - 60);
+          const snippetEnd = Math.min(contentText.length, contentLC.indexOf(queryLC) + queryLC.length + 120);
+          const snippet = contentText.slice(snippetStart, snippetEnd);
+
+          foundResults.push({
+            url: page,
+            title: title,
+            category: category,
+            author: author,
+            date: date,
+            videoUrl: videoUrl,
+            snippet: snippet.substring(0, 120) + '...'
+          });
+        }
+      } catch (err) {
+        console.error(`Ошибка загрузки ${page}:`, err);
+      }
+    }
+
+    showResults(foundResults);
+  }
+
+  function getCategoryIcon(category) {
+    switch(category) {
+      case 'anime': return '<i class="fas fa-dragon category-icon-search"></i>';
+      case 'games': return '<i class="fas fa-gamepad category-icon-search"></i>';
+      case 'fashion': return '<i class="fas fa-tshirt category-icon-search"></i>';
+      case 'music': return '<i class="fas fa-music category-icon-search"></i>';
+      case 'movies': return '<i class="fas fa-film category-icon-search"></i>';
+      case 'netanya': return '<i class="fas fa-umbrella-beach category-icon-search"></i>';
+      case 'relationships': return '<i class="fas fa-smile category-icon-search"></i>';
+      case 'theater': return '<i class="fas fa-theater-masks category-icon-search"></i>';
+      case 'school': return '<i class="fas fa-graduation-cap category-icon-search"></i>';
+      default: return '';
+    }
+  }
+
+  function showResults(results) {
+    resultsBox.innerHTML = "";
+    if (results.length === 0) {
+      resultsBox.classList.remove('hidden');
+      resultsBox.innerHTML = '<div class="text-gray-400 text-sm p-2">Ничего не найдено</div>';
+      return;
+    }
+
+    results.forEach(result => {
+      const item = document.createElement("div");
+      item.className = "search-result-item";
+
+      const icon = getCategoryIcon(result.category);
+      const videoBadge = result.videoUrl ? '<i class="fas fa-video video-badge"></i>' : '';
+
+      let metaHTML = '';
+      if (result.category || result.author || result.date) {
+        metaHTML = `
+          <div class="search-result-meta">
+            ${icon} ${result.category}
+            ${videoBadge}
+            ${result.author ? ` | Автор: ${result.author}` : ''}
+            ${result.date ? ` | Дата: ${result.date}` : ''}
+          </div>
+        `;
+      }
+
+      item.innerHTML = `
+        <a href="${result.url}" target="_blank" class="search-result-title">${result.title}</a>
+        ${metaHTML}
+        <div class="result-snippet">${result.snippet}</div>
+      `;
+
+      resultsBox.appendChild(item);
     });
 
-    document.addEventListener('click', e => {
-        if (!e.target.closest('.search-container')) {
-            resultsBox.classList.add('hidden');
-        }
-    });
+    resultsBox.classList.remove('hidden');
+  }
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value;
+    performSearch(query);
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-container')) {
+      resultsBox.classList.add('hidden');
+    }
+  });
 </script>
 
 </body>
