@@ -53,8 +53,18 @@
 
     // === ПОИСК ПО СТРАНИЦЕ ===
     const pages = [
-        "page0525.html",
-        "page0625.html"
+  "index.html",
+  "video.html",
+  "news.html",
+  "anime.html",
+  "games.html",
+  "fashion.html",
+  "music.html",
+  "movies.html",
+  "netanya.html",
+  "relationships.html",
+  "theater.html",
+  "school.html"
     ];
 
     const searchInput = document.getElementById('searchInput');
