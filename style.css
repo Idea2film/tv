@@ -266,3 +266,30 @@
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
+/* === Поиск на мобильных устройствах === */
+@media (max-width: 639px) {
+  .search-container input[type="text"] {
+    display: none;
+  }
+
+  #searchOverlay.open {
+    display: flex !important;
+  }
+
+  #searchOverlay .search-results-dropdown {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}
+
+/* === Для десктопов — поиск всегда виден === */
+@media (min-width: 640px) {
+  #searchOverlay {
+    display: none !important;
+  }
+
+  .search-container input[type="text"] {
+    display: block !important;
+    width: 100%;
+  }
+}
