@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Поиск по сайту</title>
+  <title>Поиск по сайту с видео</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -26,7 +26,7 @@
     .result-item {
       background: #fff;
       padding: 15px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       border-left: 5px solid #ec407a;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
@@ -46,18 +46,31 @@
       margin-top: 8px;
       color: #555;
     }
+
+    .result-video {
+      margin-top: 10px;
+    }
+
+    .result-video video,
+    .result-video iframe {
+      width: 100%;
+      max-height: 300px;
+      border: none;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
 
-<h1>🔍 Поиск по сайту</h1>
+<h1>🔍 Поиск по сайту с поддержкой видео</h1>
 <input type="text" id="searchInput" placeholder="Введите слово или фразу...">
 
 <div class="results" id="results"></div>
 
 <script>
   const pages = [
-        "page0525.html"
+    "page0525",
+    "page0625"
   ];
 
   const resultsDiv = document.getElementById("results");
@@ -84,12 +97,13 @@
         const metadata = doc.querySelector('.page-metadata');
         const title = doc.querySelector('title')?.textContent || page;
 
-        let category = '', author = '', date = '', contentText = '';
+        let category = '', author = '', date = '', videoUrl = '', contentText = '';
 
         if (metadata) {
-          category = metadata.getAttribute('data-category') || 'Без категории';
-          author = metadata.getAttribute('data-author') || 'Автор не указан';
-          date = metadata.getAttribute('data-date') || 'Дата не указана';
+          category = metadata.getAttribute('data-category') || '';
+          author = metadata.getAttribute('data-author') || '';
+          date = metadata.getAttribute('data-date') || '';
+          videoUrl = metadata.getAttribute('data-video') || '';
           contentText = metadata.textContent + ' ' + doc.body.textContent;
         } else {
           contentText = doc.body.textContent;
@@ -108,9 +122,10 @@
           foundResults.push({
             url: page,
             title: title,
-            category: category,
-            author: author,
-            date: date,
+            category: category || 'Без категории',
+            author: author || '',
+            date: date || '',
+            videoUrl: videoUrl || '',
             snippet: snippet
           });
         }
@@ -139,13 +154,37 @@
       const item = document.createElement("div");
       item.className = "result-item";
 
+      let metaHTML = '';
+      if (result.category || result.author || result.date) {
+        metaHTML = `
+          <div class="result-meta">
+            ${result.category ? `Категория: ${result.category}` : ''}
+            ${result.author ? ` | Автор: ${result.author}` : ''}
+            ${result.date ? ` | Дата: ${result.date}` : ''}
+          </div>
+        `;
+      }
+
+      let videoHTML = '';
+      if (result.videoUrl) {
+        const isYouTube = result.videoUrl.includes('youtube.com') || result.videoUrl.includes('youtu.be');
+        videoHTML = `
+          <div class="result-video">
+            ${isYouTube ?
+              `<iframe src="${result.videoUrl}" allowfullscreen></iframe>` :
+              `<video controls><source src="${result.videoUrl}" type="video/mp4">Ваш браузер не поддерживает видео</video>`
+            }
+          </div>
+        `;
+      }
+
       item.innerHTML = `
         <a href="${result.url}" class="result-title" target="_blank">${result.title}</a>
-        <div class="result-meta">
-          Категория: ${result.category} | Автор: ${result.author} | Дата: ${result.date}
-        </div>
+        ${metaHTML}
         <div class="result-snippet">${result.snippet}...</div>
+        ${videoHTML}
       `;
+
       resultsDiv.appendChild(item);
     });
   }
