@@ -1,0 +1,229 @@
+/* === Базовые стили и анимация блика при наведении === */
+.menu-btn,
+.category-item {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.menu-btn::after,
+.category-item::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+  transform: rotate(30deg) translate(-20px, 40px);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.menu-btn:hover::after,
+.category-item:hover::after {
+  opacity: 1;
+  transform: rotate(30deg) translate(20px, -40px);
+}
+
+/* === Цвета иконок при наведении === */
+.menu-icon {
+  transition: all 0.3s ease;
+  color: #9ca3af;
+}
+
+.news-btn:hover .menu-icon {
+  color: #3b82f6 !important;
+  transform: scale(1.5);
+}
+
+.video-btn:hover .menu-icon {
+  color: #ef4444 !important;
+  transform: scale(1.5);
+}
+
+.categories-btn:hover .menu-icon {
+  color: #10b981 !important;
+  transform: scale(1.5);
+}
+
+/* === Выпадающее меню === */
+.dropdown-menu {
+  display: none;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* === Стили для пунктов выпадающего меню === */
+.category-item {
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.category-item:hover {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  transform: scale(1.02);
+}
+
+.category-item:hover .category-text {
+  font-size: 1.05rem;
+}
+
+.category-item.active {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.category-item.active::after {
+  opacity: 1;
+}
+
+/* === Иконки категорий === */
+.category-icon {
+  width: 20px;
+  text-align: center;
+  margin-right: 8px;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+}
+
+.category-item:hover .category-icon {
+  transform: scale(1.5);
+}
+
+/* === Цвета иконок категорий === */
+.anime .category-icon {
+  color: #8b5cf6 !important;
+}
+.games .category-icon {
+  color: #ffd791 !important;
+}
+.fashion .category-icon {
+  color: #ec4899 !important;
+}
+.music .category-icon {
+  color: #3b82f6 !important;
+}
+.movies .category-icon {
+  color: #ef4444 !important;
+}
+.netanya .category-icon {
+  color: #5eff00 !important;
+}
+.relationships .category-icon {
+  color: #fcff63 !important;
+}
+.theater .category-icon {
+  color: #fdba00 !important;
+}
+.school .category-icon {
+  color: #14b8a6 !important;
+}
+
+/* === Фиксированное меню с размытием фона === */
+.header-menu {
+  backdrop-filter: blur(10px);
+}
+
+/* === Для мобильных устройств — скрываем текст в кнопках === */
+@media (max-width: 639px) {
+  .menu-text {
+    display: none;
+  }
+  .dropdown-arrow {
+    display: none;
+  }
+}
+
+/* === Для десктопов — показываем текст в кнопках === */
+@media (min-width: 640px) {
+  .menu-text {
+    display: inline;
+  }
+  .dropdown-arrow {
+    display: inline;
+  }
+}
+
+/* === Стили для поиска === */
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+}
+
+.search-results-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #1f2937;
+  border-radius: 0.5rem;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+.search-result-item {
+  padding: 8px 10px;
+  margin-bottom: 5px;
+  border-radius: 0.375rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.3s ease;
+}
+
+.search-result-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-result-title {
+  font-weight: bold;
+  color: white;
+}
+
+.search-result-meta {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.search-thumbnail {
+  width: 100%;
+  height: auto;
+  margin-top: 5px;
+  border-radius: 0.375rem;
+}
+
+.category-icon-search {
+  width: 20px;
+  text-align: center;
+  margin-right: 4px;
+  color: #9ca3af;
+}
+
+.video-badge {
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+  margin-left: 6px;
+  color: #ef4444;
+}
