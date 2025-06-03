@@ -3,26 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Поиск по сайту</title>
+  <script src="https://cdn.tailwindcss.com "></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 40px;
       background-color: #f9f9f9;
+      color: #333;
     }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border: 2px solid #ccc;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }
-
-    .results {
-      margin-top: 20px;
-    }
-
     .result-item {
       background: #fff;
       padding: 15px;
@@ -30,113 +19,160 @@
       border-left: 5px solid #ec407a;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-
     .result-title {
       font-weight: bold;
       color: #333;
     }
-
-    .result-snippet {
-      margin-top: 5px;
-      color: #555;
+    .result-meta {
+      font-size: 0.9rem;
+      color: #888;
+    }
+    .category-icon-search {
+      width: 20px;
+      text-align: center;
+      margin-right: 4px;
+      color: #9ca3af;
+    }
+    .video-badge {
+      display: inline-block;
+      width: 20px;
+      text-align: center;
+      margin-left: 6px;
+      color: #ef4444;
     }
   </style>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen">
 
-<h1>🔍 Поиск по сайту</h1>
-<input type="text" id="searchInput" placeholder="Введите слово или фразу...">
-
-<div class="results" id="results"></div>
+<h1 class="text-2xl font-bold mb-4">🔍 Результаты поиска</h1>
+<div id="results" class="space-y-4"></div>
 
 <script>
-  // Укажи здесь список страниц относительно корня сайта
   const pages = [
     "index.html",
-    "about.html",
-    "contact.html",
-    "video-tutorial.html",
-    "my-world.html",
-    "faq.html",
-    "themes.html",
-    "booking.html",
-    "gallery.html",
+    "video.html",
     "news.html",
-    "rules.html",
-    "winners.html"
+    "anime.html",
+    "games.html",
+    "fashion.html",
+    "music.html",
+    "movies.html",
+    "netanya.html",
+    "relationships.html",
+    "theater.html",
+    "school.html"
   ];
 
-  const resultsDiv = document.getElementById("results");
-
-  async function performSearch(query) {
-    if (!query.trim()) {
-      resultsDiv.innerHTML = "<p>Введите текст для поиска.</p>";
-      return;
+  function getCategoryIcon(category) {
+    switch(category) {
+      case 'anime': return '<i class="fas fa-dragon category-icon-search"></i>';
+      case 'games': return '<i class="fas fa-gamepad category-icon-search"></i>';
+      case 'fashion': return '<i class="fas fa-tshirt category-icon-search"></i>';
+      case 'music': return '<i class="fas fa-music category-icon-search"></i>';
+      case 'movies': return '<i class="fas fa-film category-icon-search"></i>';
+      case 'netanya': return '<i class="fas fa-umbrella-beach category-icon-search"></i>';
+      case 'relationships': return '<i class="fas fa-smile category-icon-search"></i>';
+      case 'theater': return '<i class="fas fa-theater-masks category-icon-search"></i>';
+      case 'school': return '<i class="fas fa-graduation-cap category-icon-search"></i>';
+      default: return '';
     }
+  }
 
-    resultsDiv.innerHTML = "<p>Идёт поиск...</p>";
-    let foundResults = [];
+  async function loadPageMetadata(pageUrl) {
+    try {
+      const response = await fetch(pageUrl);
+      const text = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      const metadata = doc.querySelector('.page-metadata');
 
+      if (metadata) {
+        return {
+          url: pageUrl,
+          title: doc.title || pageUrl,
+          category: metadata.getAttribute('data-category') || '',
+          author: metadata.getAttribute('data-author') || '',
+          date: metadata.getAttribute('data-date') || '',
+          videoUrl: metadata.getAttribute('data-video') || ''
+        };
+      } else {
+        return {
+          url: pageUrl,
+          title: doc.title || pageUrl,
+          category: '',
+          author: '',
+          date: '',
+          videoUrl: ''
+        };
+      }
+    } catch (err) {
+      console.error(`Ошибка при загрузке ${pageUrl}:`, err);
+      return null;
+    }
+  }
+
+  async function filterPagesByCategory(category) {
+    const results = [];
     for (const page of pages) {
-      try {
-        const response = await fetch(page);
-        const text = await response.text();
-
-        // Извлекаем title страницы
-        const titleMatch = text.match(/<title[^>]*>([^<]+)<\/title>/i);
-        const pageTitle = titleMatch ? titleMatch[1] : page;
-
-        // Извлекаем часть текста для сниппета
-        const content = text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
-        const queryIndex = content.toLowerCase().indexOf(query.toLowerCase());
-
-        if (queryIndex !== -1) {
-          const snippetStart = Math.max(0, queryIndex - 60);
-          const snippetEnd = Math.min(content.length, queryIndex + query.length + 120);
-          const snippet = content.slice(snippetStart, snippetEnd);
-
-          foundResults.push({
-            url: page,
-            title: pageTitle,
-            snippet: highlightText(snippet, query)
-          });
-        }
-      } catch (err) {
-        console.error(`Ошибка при загрузке ${page}:`, err);
+      const data = await loadPageMetadata(page);
+      if (data && (!category || data.category === category)) {
+        results.push(data);
       }
     }
-
-    showResults(foundResults);
+    return results.filter(Boolean);
   }
 
-  function highlightText(text, query) {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
-  }
-
-  function showResults(results) {
+  function showResults(results, selectedCategory) {
+    const resultsDiv = document.getElementById("results");
     resultsDiv.innerHTML = "";
 
+    const h2 = document.createElement("h2");
+    h2.className = "text-xl font-semibold mb-4";
+    h2.textContent = selectedCategory
+      ? `Результаты по категории: ${selectedCategory}`
+      : "Все результаты";
+    resultsDiv.appendChild(h2);
+
     if (results.length === 0) {
-      resultsDiv.innerHTML = "<p>Ничего не найдено.</p>";
+      const noResult = document.createElement("p");
+      noResult.textContent = "Ничего не найдено.";
+      resultsDiv.appendChild(noResult);
       return;
     }
 
-    results.forEach(result => {
-      const item = document.createElement("div");
-      item.className = "result-item";
-      item.innerHTML = `
-        <a href="${result.url}" class="result-title" target="_blank">${result.title}</a>
-        <div class="result-snippet">${result.snippet}...</div>
+    results.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "result-item";
+
+      const icon = getCategoryIcon(item.category);
+      const videoBadge = item.videoUrl ? '<i class="fas fa-video video-badge ml-2 text-red-500"></i>' : '';
+
+      div.innerHTML = `
+        <a href="${item.url}" class="result-title block font-bold">${icon} ${item.title}${videoBadge}</a>
+        <div class="result-meta text-sm text-gray-600">
+          ${item.category ? `<span>${item.category}</span>` : ''}
+          ${item.author ? ` | Автор: ${item.author}` : ''}
+          ${item.date ? ` | Дата: ${item.date}` : ''}
+        </div>
       `;
-      resultsDiv.appendChild(item);
+      resultsDiv.appendChild(div);
     });
   }
 
-  document.getElementById("searchInput").addEventListener("input", e => {
-    const query = e.target.value;
-    performSearch(query);
-  });
+  function getURLParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      category: params.get('category')
+    };
+  }
+
+  async function initSearch() {
+    const { category } = getURLParams();
+    const filtered = await filterPagesByCategory(category);
+    showResults(filtered, category);
+  }
+
+  window.addEventListener('DOMContentLoaded', initSearch);
 </script>
 
 </body>
