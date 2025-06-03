@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Поиск по сайту</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    .results {
+      margin-top: 20px;
+    }
+
+    .result-item {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-left: 5px solid #ec407a;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .result-title {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .result-snippet {
+      margin-top: 5px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🔍 Поиск по сайту</h1>
+<input type="text" id="searchInput" placeholder="Введите слово или фразу...">
+
+<div class="results" id="results"></div>
+
+<script>
+  // Укажи здесь список страниц относительно корня сайта
+  const pages = [
+    "index.html",
+    "about.html",
+    "contact.html",
+    "video-tutorial.html",
+    "my-world.html",
+    "faq.html",
+    "themes.html",
+    "booking.html",
+    "gallery.html",
+    "news.html",
+    "rules.html",
+    "winners.html"
+  ];
+
+  const resultsDiv = document.getElementById("results");
+
+  async function performSearch(query) {
+    if (!query.trim()) {
+      resultsDiv.innerHTML = "<p>Введите текст для поиска.</p>";
+      return;
+    }
+
+    resultsDiv.innerHTML = "<p>Идёт поиск...</p>";
+    let foundResults = [];
+
+    for (const page of pages) {
+      try {
+        const response = await fetch(page);
+        const text = await response.text();
+
+        // Извлекаем title страницы
+        const titleMatch = text.match(/<title[^>]*>([^<]+)<\/title>/i);
+        const pageTitle = titleMatch ? titleMatch[1] : page;
+
+        // Извлекаем часть текста для сниппета
+        const content = text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+        const queryIndex = content.toLowerCase().indexOf(query.toLowerCase());
+
+        if (queryIndex !== -1) {
+          const snippetStart = Math.max(0, queryIndex - 60);
+          const snippetEnd = Math.min(content.length, queryIndex + query.length + 120);
+          const snippet = content.slice(snippetStart, snippetEnd);
+
+          foundResults.push({
+            url: page,
+            title: pageTitle,
+            snippet: highlightText(snippet, query)
+          });
+        }
+      } catch (err) {
+        console.error(`Ошибка при загрузке ${page}:`, err);
+      }
+    }
+
+    showResults(foundResults);
+  }
+
+  function highlightText(text, query) {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  function showResults(results) {
+    resultsDiv.innerHTML = "";
+
+    if (results.length === 0) {
+      resultsDiv.innerHTML = "<p>Ничего не найдено.</p>";
+      return;
+    }
+
+    results.forEach(result => {
+      const item = document.createElement("div");
+      item.className = "result-item";
+      item.innerHTML = `
+        <a href="${result.url}" class="result-title" target="_blank">${result.title}</a>
+        <div class="result-snippet">${result.snippet}...</div>
+      `;
+      resultsDiv.appendChild(item);
+    });
+  }
+
+  document.getElementById("searchInput").addEventListener("input", e => {
+    const query = e.target.value;
+    performSearch(query);
+  });
+</script>
+
+</body>
+</html>
