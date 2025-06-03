@@ -1,268 +1,522 @@
-        /* Анимация блика при наведении */
-        .menu-btn, .category-item {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .menu-btn::after, .category-item::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
-            transform: rotate(30deg) translate(-20px, 40px);
-            transition: all 0.5s ease;
-            opacity: 0;
-        }
-        .menu-btn:hover::after, .category-item:hover::after {
-            opacity: 1;
-            transform: rotate(30deg) translate(20px, -40px);
-        }
-        /* Цвета иконок при наведении */
-        .menu-icon {
-            transition: all 0.3s ease;
-            color: #9ca3af;
-        }
-        .news-btn:hover .menu-icon {
-            color: #3b82f6 !important;
-            transform: scale(1.5);
-        }
-        .video-btn:hover .menu-icon {
-            color: #ef4444 !important;
-            transform: scale(1.5);
-        }
-        .categories-btn:hover .menu-icon {
-            color: #10b981 !important;
-            transform: scale(1.5);
-        }
-        /* Выпадающее меню */
-        .dropdown-menu {
-            display: none;
-            animation: fadeIn 0.3s ease forwards;
-        }
-        .dropdown-menu.open {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-        /* Стили для пунктов выпадающего меню */
-        .category-item {
-            transition: all 0.3s ease;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .category-item:hover {
-            background-color: rgba(0, 0, 0, 0.7) !important;
-            transform: scale(1.02);
-        }
-        .category-item:hover .category-text {
-            font-size: 1.05rem;
-        }
-        .category-item.active {
-            background-color: rgba(0, 0, 0, 0.9) !important;
-        }
-        .category-item.active::after {
-            opacity: 1;
-        }
-        /* Иконки категорий */
-        .category-icon {
-            width: 20px;
-            text-align: center;
-            margin-right: 8px;
-            color: #9ca3af;
-            transition: all 0.3s ease;
-        }
-        .category-item:hover .category-icon {
-            transform: scale(1.5);
-        }
-        /* Цвета иконок категорий */
-        .anime .category-icon { color: #8b5cf6 !important; }
-        .games .category-icon { color: #ffd791 !important; }
-        .fashion .category-icon { color: #ec4899 !important; }
-        .music .category-icon { color: #3b82f6 !important; }
-        .movies .category-icon { color: #ef4444 !important; }
-        .netanya .category-icon { color: #5eff00 !important; }
-        .relationships .category-icon { color: #fcff63 !important; }
-        .theater .category-icon { color: #fdba00 !important; }
-        .school .category-icon { color: #14b8a6 !important; }
+/* === Базовые стили === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        /* Фиксированное меню */
-        .header-menu {
-            backdrop-filter: blur(10px);
-        }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #111827; /* bg-gray-900 */
+  color: #fff;
+  line-height: 1.6;
+}
 
-        /* Для мобильных - скрываем текст в кнопках */
-        @media (max-width: 639px) {
-            .menu-text {
-                display: none;
-            }
-            .dropdown-arrow {
-                display: none;
-            }
-        }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-        /* Для десктопов - показываем текст в кнопках */
-        @media (min-width: 640px) {
-            .menu-text {
-                display: inline;
-            }
-            .dropdown-arrow {
-                display: inline;
-            }
-        }
+/* === Контейнеры и позиционирование === */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
-        /* Поиск */
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 200px;
-        }
-        .search-results-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 50;
-            width: 100%;
-            max-height: 300px;
-            overflow-y: auto;
-            background-color: #1f2937;
-            border-radius: 0.5rem;
-            padding: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .search-result-item {
-            padding: 8px 10px;
-            margin-bottom: 5px;
-            border-radius: 0.375rem;
-            background-color: rgba(255,255,255,0.05);
-            transition: background-color 0.3s ease;
-        }
-        .search-result-item:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
-        .search-result-title {
-            font-weight: bold;
-            color: white;
-        }
-        .search-result-meta {
-            font-size: 0.75rem;
-            color: #9ca3af;
-        }
-        .search-thumbnail {
-            width: 100%;
-            height: auto;
-            margin-top: 5px;
-            border-radius: 0.375rem;
-        }
-        .category-icon-search {
-            width: 20px;
-            text-align: center;
-            margin-right: 4px;
-            color: #9ca3af;
-        }
-        .video-badge {
-            display: inline-block;
-            width: 20px;
-            text-align: center;
-            margin-left: 6px;
-            color: #ef4444;
-        }
+.flex {
+  display: flex;
+}
 
-  /* Боди позитивчик */
-        .dark {
-            background-color: rgba(10, 10, 10, 0.95);
-            color: white;
-        }
-        .light {
-            background-color: rgba(245, 245, 245, 0.95);
-            color: black;
-        }
-        .glass-card {
-            background: rgba(30, 30, 30, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.1) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: rotate(30deg);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        .glass-card:hover::before {
-            opacity: 0.6;
-            animation: shine 1.5s;
-        }
-        @keyframes shine {
-            0% { transform: rotate(30deg) translate(-30%, -30%); }
-            100% { transform: rotate(30deg) translate(30%, 30%); }
-        }
-        .stage-card {
-            transition: all 0.3s ease;
-        }
-        .stage-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .countdown-item {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-        @media (min-width: 1024px) and (orientation: landscape) {
-            .content-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-        @media (min-width: 1536px) and (orientation: landscape) {
-            .content-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.space-x-1 > * + * { margin-left: 0.25rem; }
+.space-x-2 > * + * { margin-left: 0.5rem; }
+.space-x-4 > * + * { margin-left: 1rem; }
+
+.sm\:space-x-2 > * + * { margin-left: 0.5rem; }
+.sm\:space-x-4 > * + * { margin-left: 1rem; }
+
+/* === Фиксированное меню === */
+.header-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.7);
+  height: 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header .menu-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+header .menu-icon {
+  transition: all 0.3s ease;
+  color: #9ca3af;
+}
+
+.news-btn:hover .menu-icon {
+  color: #3b82f6 !important;
+  transform: scale(1.5);
+}
+.video-btn:hover .menu-icon {
+  color: #ef4444 !important;
+  transform: scale(1.5);
+}
+.categories-btn:hover .menu-icon {
+  color: #10b981 !important;
+  transform: scale(1.5);
+}
+
+.menu-text {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .menu-text {
+    display: inline;
+  }
+  .dropdown-arrow {
+    display: inline;
+  }
+}
+
+/* === Выпадающее меню === */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+button.menu-btn {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  min-width: 12rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0.5rem;
+  padding: 0.25rem 0;
+  display: none;
+  z-index: 50;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.category-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.category-item:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.02);
+}
+
+.category-item.active {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.category-item.active::after {
+  opacity: 1;
+}
+
+.category-icon {
+  width: 20px;
+  text-align: center;
+  margin-right: 0.5rem;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+}
+
+.category-item:hover .category-icon {
+  transform: scale(1.5);
+}
+
+.anime .category-icon { color: #8b5cf6 !important; }
+.games .category-icon { color: #ffd791 !important; }
+.fashion .category-icon { color: #ec4899 !important; }
+.music .category-icon { color: #3b82f6 !important; }
+.movies .category-icon { color: #ef4444 !important; }
+.netanya .category-icon { color: #5eff00 !important; }
+.relationships .category-icon { color: #fcff63 !important; }
+.theater .category-icon { color: #fdba00 !important; }
+.school .category-icon { color: #14b8a6 !important; }
+
+/* === Поиск === */
+.search-container {
+  position: relative;
+  max-width: 200px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  border-radius: 9999px;
+  background-color: #4b5563; /* bg-gray-700 */
+  color: #fff;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+  background-color: #374151;
+  box-shadow: 0 0 0 2px #d1d5db;
+}
+
+#searchResults {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #1f2937;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+.search-result-item {
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.375rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.3s ease;
+}
+
+.search-result-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-result-title {
+  font-weight: bold;
+  color: #fff;
+}
+
+.search-result-meta {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* === Анимация блика при наведении === */
+.menu-btn::after,
+.category-item::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+  transform: rotate(30deg) translate(-20px, 40px);
+  transition: all 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.menu-btn:hover::after,
+.category-item:hover::after {
+  opacity: 1;
+  transform: rotate(30deg) translate(20px, -40px);
+}
+
+/* === Для мобильных устройств === */
+@media (max-width: 639px) {
+  .menu-text {
+    display: none !important;
+  }
+  .dropdown-arrow {
+    display: none !important;
+  }
+}
+
+/* === Добавим немного контента для тестирования === */
+main {
+  padding-top: 5rem;
+  padding-bottom: 2.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+main h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+main p {
+  margin-bottom: 1rem;
+}
+
+/* === Подвал === */
+footer {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* === Градиентный текст заголовка Nisha TV === */
+.text-transparent {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.from-purple-400.to-pink-500 {
+  background-image: linear-gradient(90deg, #a855f7, #ec4899);
+}
+
+/* === Обратный отсчёт и карточки === */
+.countdown-item {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.feature-card {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+/* === Иконки соцсетей и рубрик === */
+.hover\:bg-opacity-20:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* === Скрытие по умолчанию === */
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+/* === Плавные переходы === */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.ease-in-out {
+  transition-timing-function: ease-in-out;
+}
+
+/* === Текстовое оформление === */
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-gray-300 {
+  color: #d1d5db;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.bg-gradient-to-r.from-purple-400.to-pink-500 {
+  background-image: linear-gradient(to right, #a855f7, #ec4899);
+}
+
+/* === Цвета кнопок === */
+.bg-black.bg-opacity-60 {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.bg-black.bg-opacity-70 {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.bg-black.bg-opacity-80 {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.bg-black.bg-opacity-90 {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* === Размеры и отступы === */
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.pt-20 {
+  padding-top: 5rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
+.sm\:w-40 {
+  width: 10rem;
+}
+
+/* === Иконки === */
+.fa-dragon,
+.fa-gamepad,
+.fa-tshirt,
+.fa-music,
+.fa-film,
+.fa-umbrella-beach,
+.fa-smile,
+.fa-theater-masks,
+.fa-graduation-cap {
+  width: 20px;
+  text-align: center;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+}
+
+.category-item:hover .fa-dragon,
+.category-item:hover .fa-gamepad,
+.category-item:hover .fa-tshirt,
+.category-item:hover .fa-music,
+.category-item:hover .fa-film,
+.category-item:hover .fa-umbrella-beach,
+.category-item:hover .fa-smile,
+.category-item:hover .fa-theater-masks,
+.category-item:hover .fa-graduation-cap {
+  transform: scale(1.5);
+}
+
+/* === Активные цвета иконок категорий === */
+.anime .fa-dragon {
+  color: #8b5cf6 !important;
+}
+
+.games .fa-gamepad {
+  color: #ffd791 !important;
+}
+
+.fashion .fa-tshirt {
+  color: #ec4899 !important;
+}
+
+.music .fa-music {
+  color: #3b82f6 !important;
+}
+
+.movies .fa-film {
+  color: #ef4444 !important;
+}
+
+.netanya .fa-umbrella-beach {
+  color: #5eff00 !important;
+}
+
+.relationships .fa-smile {
+  color: #fcff63 !important;
+}
+
+.theater .fa-theater-masks {
+  color: #fdba00 !important;
+}
+
+.school .fa-graduation-cap {
+  color: #14b8a6 !important;
+}
