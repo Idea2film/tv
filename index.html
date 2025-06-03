@@ -77,18 +77,35 @@
                 </div>
             </div>
 
-            <!-- Поиск -->
-            <div class="relative ml-2 search-container">
-                <input type="text" id="searchInput" placeholder="Поиск..." 
-                       class="bg-gray-700 bg-opacity-50 text-white px-4 py-1 rounded-full text-sm 
-                              focus:outline-none focus:ring-1 focus:ring-white focus:bg-opacity-70
-                              w-24 sm:w-40 transition-all duration-300 placeholder-gray-300">
-                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
-                    <i class="fas fa-search"></i>
-                </button>
-                <!-- Результаты поиска -->
-                <div id="searchResults" class="search-results-dropdown hidden"></div>
-            </div>
+<!-- Поиск -->
+<div class="relative ml-2 search-container">
+  <!-- Лупа (всегда видна) -->
+  <button id="searchTrigger" type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white z-50 sm:hidden">
+    <i class="fas fa-search"></i>
+  </button>
+
+  <!-- Поле поиска (отображается только на десктопах) -->
+  <input type="text" id="searchInput" placeholder="Поиск..."
+         class="bg-gray-700 bg-opacity-50 text-white px-4 py-1 rounded-full text-sm 
+                focus:outline-none focus:ring-1 focus:ring-white focus:bg-opacity-70
+                w-24 sm:w-40 transition-all duration-300 placeholder-gray-300
+                hidden sm:block">
+
+  <!-- Модальное окно поиска (показывается при клике на лупу на мобильных) -->
+  <div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-90 flex items-start justify-center pt-20 hidden z-40">
+    <div class="w-full max-w-md px-4">
+      <div class="relative mb-4">
+        <input type="text" id="mobileSearchInput" placeholder="Поиск..." 
+               class="bg-gray-700 bg-opacity-50 text-white px-4 py-2 rounded-full text-sm w-full">
+        <button id="closeSearchBtn" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="searchResults" class="search-results-dropdown mt-4 max-h-60 overflow-y-auto"></div>
+      <button id="closeSearch" class="mt-4 w-full text-center text-white underline">Закрыть</button>
+    </div>
+  </div>
+</div>
         </nav>
     </div>
 </header>
