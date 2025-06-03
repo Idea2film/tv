@@ -197,3 +197,40 @@
             resultsBox.classList.add('hidden');
         }
     });
+
+    // Новшества для меню
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownButton = dropdown.querySelector('.menu-btn');
+    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+
+    // Открытие/закрытие меню по клику
+    dropdownButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('open');
+    });
+
+    // Закрытие меню при клике вне его
+    document.addEventListener('click', function (e) {
+        if (!dropdown.contains(e.target)) {
+            dropdownMenu.classList.remove('open');
+        }
+    });
+
+    // Закрытие меню при нажатии вне его на мобильных устройствах
+    document.addEventListener('touchstart', function (e) {
+        if (!dropdown.contains(e.target)) {
+            dropdownMenu.classList.remove('open');
+        }
+    });
+
+    // На десктопах: закрытие при уходе мыши за пределы меню
+    dropdown.addEventListener('mouseleave', function () {
+        dropdownMenu.classList.remove('open');
+    });
+
+    dropdownMenu.addEventListener('mouseenter', function () {
+        dropdownMenu.classList.add('open');
+    });
+});
