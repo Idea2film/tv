@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Адаптивное меню</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Адаптивное меню с эффектами</title>
   <script src="https://cdn.tailwindcss.com "></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css " />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
   <style>
     /* Анимация блика при наведении */
     .menu-btn, .category-item {
@@ -211,39 +211,39 @@
           </button>
           <!-- Выпадающее меню рубрик -->
           <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-black bg-opacity-80 rounded-md shadow-lg py-1 z-50 backdrop-blur-sm">
-            <a href="search.html?category=anime" class="category-item anime block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=anime" class="category-item anime block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-dragon"></i></span>
               <span class="category-text">Аниме</span>
             </a>
-            <a href="search.html?category=games" class="category-item games block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=games" class="category-item games block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-gamepad"></i></span>
               <span class="category-text">Игры</span>
             </a>
-            <a href="search.html?category=fashion" class="category-item fashion block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=fashion" class="category-item fashion block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-tshirt"></i></span>
               <span class="category-text">Мода</span>
             </a>
-            <a href="search.html?category=music" class="category-item music block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=music" class="category-item music block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-music"></i></span>
               <span class="category-text">Музыка</span>
             </a>
-            <a href="search.html?category=movies" class="category-item movies block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=movies" class="category-item movies block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-film"></i></span>
               <span class="category-text">Кино</span>
             </a>
-            <a href="search.html?category=netanya" class="category-item netanya block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=netanya" class="category-item netanya block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-umbrella-beach"></i></span>
               <span class="category-text">Нетания</span>
             </a>
-            <a href="search.html?category=relationships" class="category-item relationships block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=relationships" class="category-item relationships block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-smile"></i></span>
               <span class="category-text">Отношения</span>
             </a>
-            <a href="search.html?category=theater" class="category-item theater block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=theater" class="category-item theater block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-theater-masks"></i></span>
               <span class="category-text">Театр</span>
             </a>
-            <a href="search.html?category=school" class="category-item school block px-4 py-2 text-white hover:bg-opacity-70">
+            <a href="#category=school" class="category-item school block px-4 py-2 text-white hover:bg-opacity-70">
               <span class="category-icon"><i class="fas fa-graduation-cap"></i></span>
               <span class="category-text">Школа</span>
             </a>
@@ -276,7 +276,6 @@
 </main>
 
 <script>
-  // Сохраняем поведение меню без изменений
   document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('.dropdown');
     const dropdownButton = document.querySelector('.dropdown button');
@@ -348,6 +347,21 @@
   const searchInput = document.getElementById('searchInput');
   const resultsBox = document.getElementById('searchResults');
 
+  function getCategoryIcon(category) {
+    switch(category) {
+      case 'anime': return '<i class="fas fa-dragon category-icon-search"></i>';
+      case 'games': return '<i class="fas fa-gamepad category-icon-search"></i>';
+      case 'fashion': return '<i class="fas fa-tshirt category-icon-search"></i>';
+      case 'music': return '<i class="fas fa-music category-icon-search"></i>';
+      case 'movies': return '<i class="fas fa-film category-icon-search"></i>';
+      case 'netanya': return '<i class="fas fa-umbrella-beach category-icon-search"></i>';
+      case 'relationships': return '<i class="fas fa-smile category-icon-search"></i>';
+      case 'theater': return '<i class="fas fa-theater-masks category-icon-search"></i>';
+      case 'school': return '<i class="fas fa-graduation-cap category-icon-search"></i>';
+      default: return '';
+    }
+  }
+
   async function performSearch(query) {
     if (!query.trim()) {
       resultsBox.innerHTML = '';
@@ -365,7 +379,7 @@
         const doc = parser.parseFromString(text, 'text/html');
 
         const metadata = doc.querySelector('.page-metadata');
-        const title = doc.querySelector('title')?.textContent || page;
+        const title = doc.title || page;
 
         let category = '', author = '', date = '', videoUrl = '', contentText = '';
 
@@ -405,21 +419,6 @@
     showResults(foundResults);
   }
 
-  function getCategoryIcon(category) {
-    switch(category) {
-      case 'anime': return '<i class="fas fa-dragon category-icon-search"></i>';
-      case 'games': return '<i class="fas fa-gamepad category-icon-search"></i>';
-      case 'fashion': return '<i class="fas fa-tshirt category-icon-search"></i>';
-      case 'music': return '<i class="fas fa-music category-icon-search"></i>';
-      case 'movies': return '<i class="fas fa-film category-icon-search"></i>';
-      case 'netanya': return '<i class="fas fa-umbrella-beach category-icon-search"></i>';
-      case 'relationships': return '<i class="fas fa-smile category-icon-search"></i>';
-      case 'theater': return '<i class="fas fa-theater-masks category-icon-search"></i>';
-      case 'school': return '<i class="fas fa-graduation-cap category-icon-search"></i>';
-      default: return '';
-    }
-  }
-
   function showResults(results) {
     resultsBox.innerHTML = "";
     if (results.length === 0) {
@@ -433,7 +432,7 @@
       item.className = "search-result-item";
 
       const icon = getCategoryIcon(result.category);
-      const videoBadge = result.videoUrl ? '<i class="fas fa-video video-badge"></i>' : '';
+      const videoBadge = result.videoUrl ? '<i class="fas fa-video video-badge ml-2 text-red-500"></i>' : '';
 
       let metaHTML = '';
       if (result.category || result.author || result.date) {
@@ -467,6 +466,28 @@
   document.addEventListener('click', e => {
     if (!e.target.closest('.search-container')) {
       resultsBox.classList.add('hidden');
+    }
+  });
+
+  // === ФИЛЬТРАЦИЯ ПО ЯКОРНЫМ ССЫЛКАМ ===
+  function getHashCategory() {
+    const hash = window.location.hash.replace('#category=', '').toLowerCase();
+    const validCategories = ['anime', 'games', 'fashion', 'music', 'movies', 'netanya', 'relationships', 'theater', 'school'];
+    return validCategories.includes(hash) ? hash : null;
+  }
+
+  function filterByCategory(category) {
+    return pages.filter(page => {
+      const hash = window.location.hash.replace('#category=', '');
+      return hash && page.includes(hash);
+    });
+  }
+
+  window.addEventListener('hashchange', () => {
+    const category = getHashCategory();
+    if (category) {
+      alert(`Фильтруем по: ${category}`);
+      // Здесь можно добавить вывод результатов фильтрации на странице
     }
   });
 </script>
