@@ -1,15 +1,109 @@
 <!DOCTYPE html>
-<html lang="ru" class="dark">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Школа</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Кино</title>
+    <script src="https://cdn.tailwindcss.com "></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+    <link rel="stylesheet" href="style.css">
     <div class="page-metadata" data-category="Кино" data-author="Ksenya, Maxim" data-date="20.05.2025" data-video="https://www.youtube.com/embed/0_kmIj9oWc0"></div>
 </head>
 <body>
+
+
+<body class="bg-gray-900 text-white">
+
+<!-- Полупрозрачное меню -->
+<header class="header-menu bg-black bg-opacity-70 fixed w-full z-50">
+    <div class="container mx-auto px-4">
+        <nav class="flex items-center justify-between h-16">
+            <!-- Основное меню -->
+            <div class="flex items-center space-x-1 sm:space-x-2">
+            
+                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Nisha TV</h1>
+                <!-- Новости -->
+                <a href="index.html" class="menu-btn news-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
+                    <i class="menu-icon fas fa-newspaper text-gray-400 sm:mr-2"></i>
+                    <span class="menu-text">Новости</span>
+                </a>
+                <!-- Видео -->
+                <a href="video.html" class="menu-btn video-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
+                    <i class="menu-icon fas fa-video text-gray-400 sm:mr-2"></i>
+                    <span class="menu-text">Видео</span>
+                </a>
+                <!-- Рубрики с выпадающим меню -->
+                <div class="dropdown relative">
+                    <button class="menu-btn categories-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
+                        <i class="menu-icon fas fa-tags text-gray-400 sm:mr-2"></i>
+                        <span class="menu-text">Рубрики</span>
+                        <i class="dropdown-arrow fas fa-chevron-down ml-1 text-xs text-gray-400"></i>
+                    </button>
+                    <!-- Выпадающее меню рубрик -->
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-black bg-opacity-80 rounded-md shadow-lg py-1 z-50 backdrop-blur-sm">
+                        <a href="#" class="category-item anime block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-dragon"></i></span>
+                            <span class="category-text">Аниме</span>
+                        </a>
+                        <a href="#" class="category-item games block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-gamepad"></i></span>
+                            <span class="category-text">Игры</span>
+                        </a>
+                        <a href="#" class="category-item fashion block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-tshirt"></i></span>
+                            <span class="category-text">Мода</span>
+                        </a>
+                        <a href="#" class="category-item music block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-music"></i></span>
+                            <span class="category-text">Музыка</span>
+                        </a>
+                        <a href="#" class="category-item movies block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-film"></i></span>
+                            <span class="category-text">Кино</span>
+                        </a>
+                        <a href="#" class="category-item netanya block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-umbrella-beach"></i></span>
+                            <span class="category-text">Нетания</span>
+                        </a>
+                        <a href="#" class="category-item relationships block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-smile"></i></span>
+                            <span class="category-text">Отношения</span>
+                        </a>
+                        <a href="#" class="category-item theater block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-theater-masks"></i></span>
+                            <span class="category-text">Театр</span>
+                        </a>
+                        <a href="#" class="category-item school block px-4 py-2 text-white hover:bg-opacity-70">
+                            <span class="category-icon"><i class="fas fa-graduation-cap"></i></span>
+                            <span class="category-text">Школа</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Поиск -->
+            <div class="relative ml-2 search-container">
+                <input type="text" id="searchInput" placeholder="Поиск..." 
+                       class="bg-gray-700 bg-opacity-50 text-white px-4 py-1 rounded-full text-sm 
+                              focus:outline-none focus:ring-1 focus:ring-white focus:bg-opacity-70
+                              w-24 sm:w-40 transition-all duration-300 placeholder-gray-300">
+                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
+                    <i class="fas fa-search"></i>
+                </button>
+                <!-- Результаты поиска -->
+                <div id="searchResults" class="search-results-dropdown hidden"></div>
+            </div>
+        </nav>
+    </div>
+</header>
     <h1>Будем делать обзоры на фильмы</h1>
     <p>Ваши предложения приветствуются!</p>
+<main class="container mx-auto pt-20 px-4">
+    <h2 class="text-2xl font-bold mb-4">🎥 Кино</h2>
+    <div id="categoryResults" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Здесь будут результаты -->
+    </div>
+</main>
+
+<script src="search.js" defer></script>
 </body>
 </html>
