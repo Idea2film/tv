@@ -158,3 +158,34 @@ document.addEventListener('click', e => {
     resultsBox.classList.add('hidden');
   }
 });
+const searchTrigger = document.getElementById('searchTrigger');
+const searchOverlay = document.getElementById('searchOverlay');
+const searchInputField = document.getElementById('searchInput');
+const closeSearchBtn = document.getElementById('closeSearch');
+
+// Открытие поиска на мобильных
+searchTrigger.addEventListener('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  searchOverlay.classList.add('open');
+  searchInputField.focus();
+});
+
+// Закрытие поиска
+closeSearchBtn.addEventListener('click', function() {
+  searchOverlay.classList.remove('open');
+  resultsBox.innerHTML = '';
+  resultsBox.classList.add('hidden');
+  searchInputField.value = '';
+});
+
+// Закрытие поиска при клике вне области
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-container') && 
+      !e.target.closest('#searchOverlay')) {
+    searchOverlay.classList.remove('open');
+    resultsBox.innerHTML = '';
+    resultsBox.classList.add('hidden');
+    searchInputField.value = '';
+  }
+});
