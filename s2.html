@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Поиск по сайту</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    .results {
+      margin-top: 20px;
+    }
+
+    .result-item {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-left: 5px solid #ec407a;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .result-title {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .result-meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .result-snippet {
+      margin-top: 8px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🔍 Поиск по сайту</h1>
+<input type="text" id="searchInput" placeholder="Введите слово или фразу...">
+
+<div class="results" id="results"></div>
+
+<script>
+  const pages = [
+    "index.html",
+    "about.html",
+    "contact.html",
+    "video-tutorial.html",
+    "my-world.html",
+    "faq.html",
+    "themes.html",
+    "booking.html",
+    "gallery.html",
+    "news.html",
+    "rules.html",
+    "winners.html"
+  ];
+
+  const resultsDiv = document.getElementById("results");
+
+  async function performSearch(query) {
+    if (!query.trim()) {
+      resultsDiv.innerHTML = "<p>Введите текст для поиска.</p>";
+      return;
+    }
+
+    resultsDiv.innerHTML = "<p>Идёт поиск...</p>";
+    let foundResults = [];
+
+    for (const page of pages) {
+      try {
+        const response = await fetch(page);
+        const text = await response.text();
+
+        // Парсим DOM
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+
+        // Извлекаем метаданные
+        const metadata = doc.querySelector('.page-metadata');
+        const title = doc.querySelector('title')?.textContent || page;
+
+        let category = '', author = '', date = '', contentText = '';
+
+        if (metadata) {
+          category = metadata.getAttribute('data-category') || 'Без категории';
+          author = metadata.getAttribute('data-author') || 'Автор не указан';
+          date = metadata.getAttribute('data-date') || 'Дата не указана';
+          contentText = metadata.textContent + ' ' + doc.body.textContent;
+        } else {
+          contentText = doc.body.textContent;
+        }
+
+        // Поиск по тексту
+        const queryLC = query.toLowerCase();
+        const contentLC = contentText.toLowerCase();
+        const index = contentLC.indexOf(queryLC);
+
+        if (index !== -1) {
+          const snippetStart = Math.max(0, index - 60);
+          const snippetEnd = Math.min(contentText.length, index + query.length + 120);
+          const snippet = highlightText(contentText.slice(snippetStart, snippetEnd), query);
+
+          foundResults.push({
+            url: page,
+            title: title,
+            category: category,
+            author: author,
+            date: date,
+            snippet: snippet
+          });
+        }
+      } catch (err) {
+        console.error(`Ошибка при загрузке ${page}:`, err);
+      }
+    }
+
+    showResults(foundResults);
+  }
+
+  function highlightText(text, query) {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  function showResults(results) {
+    resultsDiv.innerHTML = "";
+
+    if (results.length === 0) {
+      resultsDiv.innerHTML = "<p>Ничего не найдено.</p>";
+      return;
+    }
+
+    results.forEach(result => {
+      const item = document.createElement("div");
+      item.className = "result-item";
+
+      item.innerHTML = `
+        <a href="${result.url}" class="result-title" target="_blank">${result.title}</a>
+        <div class="result-meta">
+          Категория: ${result.category} | Автор: ${result.author} | Дата: ${result.date}
+        </div>
+        <div class="result-snippet">${result.snippet}...</div>
+      `;
+      resultsDiv.appendChild(item);
+    });
+  }
+
+  document.getElementById("searchInput").addEventListener("input", e => {
+    const query = e.target.value;
+    performSearch(query);
+  });
+</script>
+
+</body>
+</html>
