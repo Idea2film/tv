@@ -94,66 +94,103 @@
 
 <!-- Контент страницы -->
 
-    <body class="min-h-screen transition-colors duration-300 bg-gradient-to-br from-gray-900 to-black">
-    <header class="glass-card py-6 shadow-lg">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <i class="fas fa-tv text-3xl text-purple-400"></i>
-                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Nisha TV</h1>
-            </div>
-            <button id="theme-toggle" class="bg-white dark:bg-gray-800 text-blue-600 dark:text-yellow-300 p-2 rounded-full shadow-md hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors">
-                <i class="fas fa-sun"></i>
-            </button>
-        </div>
-    </header>
-
     <main class="container mx-auto px-4 py-8">
         <section class="mb-12 glass-card rounded-2xl p-8">
-                        
-            <h2 class="text-3xl font-bold mb-6 text-center text-white">О нашем проекте</h2>
+
             <div class="glass-card rounded-xl p-6 mb-8">
                 <p class="text-lg mb-4 text-gray-300">
-                    Nisha TV - это телеканал, создающий уникальный контент, который вдохновляет и объединяет.
-                </p>
-                <p class="text-lg mb-4 text-gray-300">
-                    Мы сочетаем современные технологии видеопроизводства с креативным подходом.
-                </p>
-                <p class="text-lg text-gray-300">
-                    Наш русскоязычный канал в Израиле - это пространство, где каждый может найти что-то по душе:
+                    Nisha TV - это молодёжный рускоязычный телеканал в Израиле, создающий уникальный контент, который вдохновляет и объединяет.
+                    Мы сочетаем современные технологии видеопроизводства с креативным подходом. С нами каждый подросток может найти то, что ему по душе:
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="feature-card rounded-lg p-6 flex items-center">
-                    <i class="fas fa-film text-4xl mr-4 text-red-400"></i>
-                    <div>
-                        <h3 class="font-bold text-lg text-white">Театр и кино</h3>
-                        <p class="text-gray-400">Рецензии на фильмы и спектаки</p>
-                    </div>
-                </div>
-                <div class="feature-card rounded-lg p-6 flex items-center">
-                    <i class="fas fa-music text-4xl mr-4 text-purple-400"></i>
-                    <div>
-                        <h3 class="font-bold text-lg text-white">Музыка</h3>
-                        <p class="text-gray-400">Эксклюзивные интервью с музыкантами</p>
-                    </div>
-                </div>
-                <div class="feature-card rounded-lg p-6 flex items-center">
-                    <i class="fas fa-graduation-cap text-4xl mr-4 text-blue-400"></i>
-                    <div>
-                        <h3 class="font-bold text-lg text-white">Образование</h3>
-                        <p class="text-gray-400">Обсуждение особенностей израильсих школ</p>
-                    </div>
-                </div>
-                <div class="feature-card rounded-lg p-6 flex items-center">
-                    <i class="fas fa-gamepad text-4xl mr-4 text-green-400"></i>
-                    <div>
-                        <h3 class="font-bold text-lg text-white">Игры и AI</h3>
-                        <p class="text-gray-400">Новости мира игр и искусственного интеллекта</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <!-- Блок с описанием рубрик -->
+<section class="mb-16">
+  <h2 class="text-3xl font-bold text-center mb-10 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Рубрики Nisha TV</h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto px-4">
+    <!-- Аниме -->
+    <a href="anime.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-dragon text-3xl mr-4 text-purple-400"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Аниме</h3>
+        <p class="text-gray-400">Обзоры аниме-сериалов, аналитика и новинки сезона.</p>
+      </div>
+    </a>
+
+    <!-- Игры -->
+    <a href="games.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-gamepad text-3xl mr-4 text-yellow-300"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Игры</h3>
+        <p class="text-gray-400">Обзоры, новости, стримы и разборы игровых миров.</p>
+      </div>
+    </a>
+
+    <!-- Мода -->
+    <a href="fashion.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-tshirt text-3xl mr-4 text-pink-400"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Мода</h3>
+        <p class="text-gray-400">Стильные луки, тренды и советы по стилю одежды.</p>
+      </div>
+    </a>
+
+    <!-- Музыка -->
+    <a href="music.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-music text-3xl mr-4 text-blue-400"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Музыка</h3>
+        <p class="text-gray-400">Эксклюзивные интервью и обзоры на новые треки.</p>
+      </div>
+    </a>
+
+    <!-- Кино -->
+    <a href="movies.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-film text-3xl mr-4 text-red-400"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Кино</h3>
+        <p class="text-gray-400">Новинки проката, рецензии и дискуссии.</p>
+      </div>
+    </a>
+
+    <!-- Нетания -->
+    <a href="netanya.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-umbrella-beach text-3xl mr-4 text-green-300"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Нетания</h3>
+        <p class="text-gray-400">Жизнь города глазами молодежи.</p>
+      </div>
+    </a>
+
+    <!-- Отношения -->
+    <a href="relationships.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-smile text-3xl mr-4 text-yellow-300"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Отношения</h3>
+        <p class="text-gray-400">Как строить отношения между людьми и эмоциями.</p>
+      </div>
+    </a>
+
+    <!-- Театр -->
+    <a href="theater.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-theater-masks text-3xl mr-4 text-orange-400"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Театр</h3>
+        <p class="text-gray-400">Спектакли, актёры и театральная культура.</p>
+      </div>
+    </a>
+
+    <!-- Школа -->
+    <a href="school.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
+      <i class="fas fa-graduation-cap text-3xl mr-4 text-cyan-400"></i>
+      <div>
+        <h3 class="font-bold text-lg text-white">Школа</h3>
+        <p class="text-gray-400">Трудности, победы и секреты школьной жизни.</p>
+      </div>
+    </a>
+  </div>
+</section>
 
         <h2 class="text-3xl font-bold mb-8 text-center text-white">Этапы создания телеканала</h2>
         
