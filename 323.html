@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финальный шаблон Nisha TV</title>
+    <style>
+                /* --- ОБЩИЕ СТИЛИ И СБРОС (ТЕМНАЯ ТЕМА) --- */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+             margin: 0; background-color: #000000; color: #ffffff; line-height: 1.6; font-size: clamp(14px, 1.25vw, 28px); }
+
+        /* --- ХЕДЕР СТРАНИЦЫ --- */
+        .site-header { text-align: center; padding: 2px 5px; background-color: #111; border-bottom: 2px solid #f39c12; }
+        .site-header h1 { margin: 0; font-size: 2em; color: #f39c12; font-weight: 700; letter-spacing: 2px; text-shadow: 0 0 5px rgba(243, 156, 18, 0.5); }
+
+        /* --- ОСНОВНАЯ СТРУКТУРА СТРАНИЦЫ --- */
+        .main-layout { display: flex; flex-direction: column; width: 100%; max-width: 3800px; margin: 0 auto; padding: 10px 0px; }
+        .articles-column { flex-grow: 1; }
+
+        /* --- БЛОК КОНТЕНТА --- */
+        .content-block, .author-bio-card { background-color: #00000060; margin-bottom: 15px; position: relative; width: 100%; border-radius: 5px 0 0 5px; overflow: hidden; }
+        .content-block img { width: 100%; height: auto; display: block; }
+        .video-container { position: relative; width: 100%; overflow: hidden; }
+        .video-container.ratio-16-9 { padding-top: 56.25%; }
+        .video-container.ratio-4-3 { padding-top: 75%; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .text-container { padding: 1px; }
+        .content-block h2, .content-block h3 { font-size: 1.5em; margin: 15px 10px 5px 10px; color: #bbbbbb; }
+        .expandable .title-label { cursor: pointer; display: block; }
+        .expandable .title-label h2, .expandable .title-label h3 { color: #f39c12; }
+        .content-wrapper p { margin: 0 10px 1em 10px; }
+
+       /* --- Блок с информацией об авторе --- */
+.author-bio-card { position: relative; padding: 20px; border-left: 3px solid #f39c12; overflow: hidden; min-height: 160px; }
+.author-bio-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('images/bio.jpg'); background-size: cover; background-position: center; opacity: 0.75; z-index: -1; }
+.author-avatar { width: 150px; height: 150px; border-radius: 50%; background-color: #444; display: flex; align-items: center; justify-content: center; font-size: 2em; font-weight: bold; color: #f39c12; float: left; margin-right: 10px; margin-bottom: 10px; border: 2px solid rgba(255, 255, 255, 0.5); }
+.author-avatar::before { content: attr(data-initials); line-height: 1; }
+.author-info h3 { color: #fff; margin: 0 0 5px 0; }
+.author-info p { margin: 0; font-size: 0.9em; color: #ccc; }
+.author-info a { color: #f39c12; font-weight: bold; text-decoration: none; }
+.author-info a:hover { text-decoration: underline; }
+.close-bio-button { position: absolute; top: 5px; right: 15px; font-size: 28px; line-height: 1; color: #f39c12; text-decoration: none; cursor: pointer; transition: transform 0.2s ease, color 0.2s ease; text-shadow: 0 0 5px #000; }
+.close-bio-button:hover { transform: scale(1.2); color: #fff; }
+         /* --- Контейнер для слайдера, чтобы задать ему ширину --- */
+        .category-slider-container { width: 100%; }
+        /* --- Правило ТОЛЬКО для широких экранов (≥ 1280px) --- */
+        @media (min-width: 1280px) {
+            .category-slider-container { max-width: 430px; margin-left: auto; margin-right: auto; }
+        }
+
+        /* --- СТИЛИ ДЛЯ СЛАЙДЕРА РУБРИК --- */
+        /* Внешний контейнер, задающий размеры и обрезающий все лишнее */
+        .category-slider { width: 100%; overflow: hidden; aspect-ratio: 16 / 9; border-radius: 5px;  margin-top: 5px; padding-top: 15px; }
+        .slider-track { display: flex; width: 1000%; height: 100%; animation: slide-animation 30s infinite; }
+        /* Приостанавливаем анимацию при наведении, чтобы можно было нажать на ссылку */
+        .category-slider:hover .slider-track { animation-play-state: paused; }
+        /* Стиль каждого отдельного слайда (ссылки) */
+        .slide { width: 10%; height: 100%; position: relative; display: flex; align-items: flex-end; justify-content: center; color: #fff; text-decoration: none;
+             background-size: cover; background-position: center; transition: transform 0.3s ease; }
+        .slide:hover { z-index: 2; }
+        /* Полупрозрачная плашка для текста */
+        .slide-caption { width: 100%; background-color: rgba(0, 0, 0, 0.3); padding: 10px; text-align: center; font-weight: bold; font-size: 1.1em; transition: background-color 0.3s; }
+        .slide:hover .slide-caption { background-color: rgba(243, 156, 18, 0.8); /* Оранжевый при наведении */ }
+        /* --- ИЗОБРАЖЕНИЯ СЛАЙДОВ --- */
+        .slider-track .slide:nth-child(1)  { background-image: url('images/rubrika1.jpg'); }
+        .slider-track .slide:nth-child(2)  { background-image: url('images/rubrika2.jpg'); }
+        .slider-track .slide:nth-child(3)  { background-image: url('images/rubrika3.jpg'); }
+        .slider-track .slide:nth-child(4)  { background-image: url('images/rubrika4.jpg'); }
+        .slider-track .slide:nth-child(5)  { background-image: url('images/rubrika5.jpg'); }
+        .slider-track .slide:nth-child(6)  { background-image: url('images/rubrika6.jpg'); }
+        .slider-track .slide:nth-child(7)  { background-image: url('images/rubrika7.jpg'); }
+        .slider-track .slide:nth-child(8)  { background-image: url('images/rubrika8.jpg'); }
+        .slider-track .slide:nth-child(9)  { background-image: url('images/rubrika9.jpg'); }
+        .slider-track .slide:nth-child(10) { background-image: url('images/rubrika10.jpg'); }
+        /* --- АНИМАЦИЯ СЛАЙДОВ --- */
+        @keyframes slide-animation {
+            /* Каждый слайд отображается 8% времени (2.4с), переход занимает 2% (0.6с) */
+            0%, 8%    { transform: translateX(0%); }      /* Слайд 1 */
+            10%, 18%  { transform: translateX(-10%); }   /* Слайд 2 */
+            20%, 28%  { transform: translateX(-20%); }   /* Слайд 3 */
+            30%, 38%  { transform: translateX(-30%); }   /* Слайд 4 */
+            40%, 48%  { transform: translateX(-40%); }   /* Слайд 5 */
+            50%, 58%  { transform: translateX(-50%); }   /* Слайд 6 */
+            60%, 68%  { transform: translateX(-60%); }   /* Слайд 7 */
+            70%, 78%  { transform: translateX(-70%); }   /* Слайд 8 */
+            80%, 88%  { transform: translateX(-80%); }   /* Слайд 9 */
+            90%, 98%  { transform: translateX(-90%); }   /* Слайд 10 */
+            100%      { transform: translateX(-90%); }   /* Завершение цикла */
+        }
+
+        /* --- СИСТЕМА "ЧИТАТЬ ДАЛЕЕ / СКРЫТЬ" (CSS-ONLY) --- */
+        .read-more-toggle, .author-filter-radio { display: none; }
+        .hidden-content { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out; }
+        .read-more-toggle:checked ~ .text-container .hidden-content { max-height: 2000px; opacity: 1; }
+        .read-more-button, .read-less-button { position: absolute; bottom: 10px; right: 10px; z-index: 2; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 5px 12px; border-radius: 5px; cursor: pointer; user-select: none; font-weight: bold; font-size: 0.9em; transition: background-color 0.2s; }
+        .read-more-button:hover, .read-less-button:hover { background-color: rgba(0, 0, 0, 0.9); }
+        .read-more-button { display: none; }
+        .expandable .read-more-button { display: block; }
+        .read-more-toggle:checked ~ .read-more-button { display: none; }
+        .read-less-button { display: none; }
+        .expandable .read-more-toggle:checked ~ .read-less-button { display: block; }
+
+        /* --- НАВИГАЦИЯ И ФУТЕР --- */
+        .sidebar-footer { background-color: #252525; padding: 15px 20px; text-align: center; }
+        .sidebar-footer h4 { margin-top: 0; color: #f39c12; text-align: left; }
+        .table-of-contents { list-style: none; padding: 0; margin: 0; text-align: left; }
+        .table-of-contents li { display: none; margin-bottom: 15px; }
+        .table-of-contents a { color: #ffffff; text-decoration: none; font-weight: bold; display: block; }
+        .table-of-contents a:hover { text-decoration: underline; color: #f39c12; }
+        .toc-metadata { font-size: 0.8em; color: #bbbbbb; line-height: 1.3; }
+        .toc-video-item a::before { content: ''; display: inline-block; width: 0; height: 0; border-top: 0.4em solid transparent; border-bottom: 0.4em solid transparent;
+         border-left: 0.6em solid #f39c12; margin-right: 0.4em; vertical-align: middle; transform: translateY(-1px); /* Тонкая коррекция вертикального позиционирования */ }
+        .footer-controls { display: flex; align-items: center; justify-content: space-between; text-align: center; margin-top: 20px; border-top: 1px solid #444; padding-top: 15px; }
+        .reset-button { display: inline-block; background-color: #333; color: #fff; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; text-align: center; flex-grow: 1; }
+        .scroll-top-button { display: inline-block; width: 38px; height: 40px; line-height: 40px; background-color: #333; border-radius: 5px; margin-left: 10px; }
+        .scroll-top-button::before { content: ''; display: inline-block; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 15px solid #f39c12; }
+
+        /* --- ЛОГИКА ФИЛЬТРАЦИИ И НАВИГАЦИИ --- */
+        .content-block, .author-bio-card, .reset-button-container { display: none; }
+        #author-all:checked ~ .main-layout .content-block { display: block; }
+        #author-blunder:checked ~ .main-layout #bio-blunder, #author-blunder:checked ~ .main-layout .content-block[data-author="Илья Панфилов"] { display: block; }
+        #author-mia:checked ~ .main-layout #bio-mia, #author-mia:checked ~ .main-layout .content-block[data-author="Мияшо"] { display: block; }
+        #author-max:checked ~ .main-layout #bio-max, #author-max:checked ~ .main-layout .content-block[data-author="Zashebu"] { display: block; }
+        #author-ksenya:checked ~ .main-layout #bio-ksenya, #author-ksenya:checked ~ .main-layout .content-block[data-author="Нари"] { display: block; }
+        #author-sonya:checked ~ .main-layout #bio-sonya, #author-sonya:checked ~ .main-layout .content-block[data-author="Ивори"] { display: block; }
+        #author-varya:checked ~ .main-layout #bio-varya, #author-varya:checked ~ .main-layout .content-block[data-author="Басся"] { display: block; }
+        #author-noam:checked ~ .main-layout #bio-noam, #author-noam:checked ~ .main-layout .content-block[data-author="Ноам"] { display: block; }
+        #author-shelli:checked ~ .main-layout #bio-shelli, #author-shelli:checked ~ .main-layout .content-block[data-author="Шейлли"] { display: block; }
+        #author-dasha:checked ~ .main-layout #bio-dasha, #author-dasha:checked ~ .main-layout .content-block[data-author="Сади"] { display: block; }
+        #author-elena:checked ~ .main-layout #bio-elena, #author-elena:checked ~ .main-layout .content-block[data-author="Елена Саханова"] { display: block; }
+
+        #author-blunder:checked ~ .main-layout .reset-button-container,
+        #author-mia:checked ~ .main-layout .reset-button-container,
+        #author-max:checked ~ .main-layout .reset-button-container,
+        #author-ksenya:checked ~ .main-layout .reset-button-container,
+        #author-sonya:checked ~ .main-layout .reset-button-container,
+        #author-varya:checked ~ .main-layout .reset-button-container,
+        #author-noam:checked ~ .main-layout .reset-button-container,
+        #author-shelli:checked ~ .main-layout .reset-button-container,
+        #author-dasha:checked ~ .main-layout .reset-button-container,
+        #author-elena:checked ~ .main-layout .reset-button-container { display: block; }
+
+        #author-all:checked ~ .main-layout .table-of-contents li,
+        #author-blunder:checked ~ .main-layout .table-of-contents li[data-author="Илья Панфилов"],
+        #author-mia:checked ~ .main-layout .table-of-contents li[data-author="Мияшо"],
+        #author-max:checked ~ .main-layout .table-of-contents li[data-author="Zashebu"],
+        #author-ksenya:checked ~ .main-layout .table-of-contents li[data-author="Нари"],
+        #author-sonya:checked ~ .main-layout .table-of-contents li[data-author="Ивори"],
+        #author-varya:checked ~ .main-layout .table-of-contents li[data-author="Басся"],
+        #author-noam:checked ~ .main-layout .table-of-contents li[data-author="Ноам"],
+        #author-shelli:checked ~ .main-layout .table-of-contents li[data-author="Шейлли"],
+        #author-dasha:checked ~ .main-layout .table-of-contents li[data-author="Сади"],
+        #author-elena:checked ~ .main-layout .table-of-contents li[data-author="Елена Саханова"] {
+            display: list-item;
+        }
+
+                /* --- СТИЛИ ДЛЯ ГОРИЗОНТАЛЬНЫХ ЭКРАНОВ (≥1280px) --- */
+        @media (min-width: 1280px) {
+            .main-layout { flex-direction: row; gap: 25px; padding: 20px; align-items: flex-start; }
+            .sidebar-footer { flex-basis: 320px; flex-shrink: 0; border-radius: 5px; text-align: left; position: sticky; top: 20px; }
+            .content-block {display: flex; align-items: flex-start; margin: 0 0 25px 0; padding: 0; background-color: rgba(40, 40, 40, 0.5); border: 1px solid #444444; border-radius: 5px;
+        position: relative; /* Для абсолютного позиционирования фона */
+        }
+            .content-block img,
+            .content-block .video-container { width: 30%; height: auto; flex-shrink: 0; z-index: 1; }
+
+            /* ФОН В ЛЕВОЙ КОЛОНКЕ */
+            .content-block::before { content: ""; position: absolute; width: 30%; height: 100%; background-image: url('images/fon.jpg'); z-index: -1; opacity: 0.75;}
+            .content-block img, .content-block .video-container { width: 30%; height: auto; flex-shrink: 0; }
+            .content-block > .video-container::before,
+            .video-container.ratio-16-9 { aspect-ratio: 16 / 9; padding-top: 0; }
+            .video-container.ratio-4-3 { aspect-ratio: 4 / 3; padding-top: 0; }
+            .text-container { padding: 20px; overflow: hidden; }
+            .content-block h2, .content-block h3, .metadata, .content-wrapper p { margin-left: 0; margin-right: 0; }
+            .content-block h2, .content-block h3 { margin-top: 0; }
+            .reset-button-container, .social-icons { justify-content: flex-start; text-align: left; }
+
+            /* Переопределение логики отображения для десктопа */
+            #author-all:checked ~ .main-layout .content-block,
+            #author-blunder:checked ~ .main-layout .content-block[data-author="Илья Панфилов"],
+            #author-mia:checked ~ .main-layout .content-block[data-author="Мияшо"],
+            #author-max:checked ~ .main-layout .content-block[data-author="Zashebu"],
+            #author-ksenya:checked ~ .main-layout .content-block[data-author="Нари"],
+            #author-sonya:checked ~ .main-layout .content-block[data-author="Ивори"],
+            #author-varya:checked ~ .main-layout .content-block[data-author="Басся"],
+            #author-noam:checked ~ .main-layout .content-block[data-author="Ноам"],
+            #author-shelli:checked ~ .main-layout .content-block[data-author="Шейлли"],
+            #author-dasha:checked ~ .main-layout .content-block[data-author="Сади"],
+            #author-elena:checked ~ .main-layout .content-block[data-author="Елена Саханова"] {
+                display: flex;
+            }
+        }
+
+        /* --- ИКОНКИ СОЦСЕТЕЙ --- */
+        .social-icons { margin-top: 20px; border-top: 1px solid #444; padding-top: 15px; display: flex; gap: 20px; justify-content: center; }
+        .social-icons a { display: block; width: 24px; height: 24px; opacity: 0.7; transition: opacity 0.2s; background-color: #fff; mask-repeat: no-repeat; mask-size: contain; mask-position: center; }
+        .social-icons a:hover { opacity: 1; }
+        .icon-youtube { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>'); }
+        .icon-facebook { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>'); }
+        .icon-telegram { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13L2 9L22 2zM22 2L15 22L11 13L2 9L22 2z"></path></svg>'); }
+        .icon-whatsapp { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>'); }
+
+        /* --- МЕТАДАННЫЕ С ИКОНКАМИ --- */
+        .metadata { color: #bbbbbb; font-size: 0.85em; margin: 0 10px 15px 10px; padding-top: 2px; display: flex; flex-wrap: wrap; align-items: center; gap: 1.5em; }
+        .metadata > *:not(:empty) { display: inline-flex; align-items: center; }
+        .metadata-icon { display: inline-block; width: 14px; height: 14px; background-color: currentColor; mask-repeat: no-repeat; mask-size: contain; mask-position: center; margin-right: 6px; }
+        .metadata a { color: inherit; text-decoration: none; }
+        .metadata a:hover { color: #f39c12; text-decoration: underline; }
+        .icon-category { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>'); }
+        .icon-author { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'); }
+        .icon-date { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>'); }
+        .author-filter-trigger { cursor: pointer; text-decoration: underline; text-decoration-style: dotted; }
+        .author-filter-trigger:hover { color: #f39c12; }
+
+                /* --- СТИЛИ ДЛЯ БЛОКА С КОПИРАЙТОМ --- */
+        .copyright-footer { border-top: 1px solid #f39c12; margin-top: 20px; padding-top: 15px; text-align: center; }
+        .copyright-footer p { margin: 0; font-size: 0.85em; color: #a0a0a0; line-height: 1; }
+                /* --- СТИЛИ ДЛЯ АНИМИРОВАННОЙ ССЫЛКИ --- */
+        .animated-video-link { display: inline-flex; align-items: center; background-color: #00000000; padding: 12px 24px; border-radius: 12px; text-decoration: none; position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+        .animated-video-link .text-container { position: relative; height: 1.2em; width: 220px; margin-left: 15px; display: flex; align-items: center; justify-content: center; z-index: 2; }
+        .animated-video-link .text-container span { color: #fff; font-size: 1.2em; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            opacity: 0; animation-duration: 10s; animation-iteration-count: infinite; animation-timing-function: linear; }
+        .animated-video-link .word-1 { animation-name: show-word-1; }
+        .animated-video-link .word-2 { animation-name: show-word-2; }
+        .animated-video-link .word-3 { animation-name: show-word-3; }
+        .animated-video-link .play-icon { position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 16px solid #f39c12;
+            animation: move-arrow 10s linear infinite; z-index: 3; }
+
+        /* --- КЛЮЧЕВЫЕ КАДРЫ АНИМАЦИИ --- */
+        @keyframes move-arrow {
+            /* Проход 1 */
+            0%      { transform: translate(20px, -50%); opacity: 1; }
+            5%      { transform: translate(240px, -50%); opacity: 1; }
+            /* Сразу после 5% и до 33.3% треугольник невидим и находится в стартовой точке */
+            5.01%   { transform: translate(20px, -50%); opacity: 0; }
+            33.29%  { opacity: 0; }
+
+            /* Проход 2 */
+            33.3%   { transform: translate(20px, -50%); opacity: 1; }
+            38.3%   { transform: translate(240px, -50%); opacity: 1; }
+            38.31%  { transform: translate(20px, -50%); opacity: 0; }
+            66.59%  { opacity: 0; }
+
+            /* Проход 3 */
+            66.6%   { transform: translate(20px, -50%); opacity: 1; }
+            71.6%   { transform: translate(240px, -50%); opacity: 1; }
+            71.61%  { transform: translate(20px, -50%); opacity: 0; }
+            100%    { opacity: 0; }
+        }
+
+        /* Анимация для слов осталась нетронутой */
+        @keyframes show-word-1 {
+            0%      { opacity: 1; clip-path: inset(0 100% 0 0); }
+            5%      { opacity: 1; clip-path: inset(0 0 0 0); }
+            23.3%   { opacity: 1; clip-path: inset(0 0 0 0); }
+            33.3%   { opacity: 0; clip-path: inset(0 0 0 0); }
+            100%    { opacity: 0; }
+        }
+
+        @keyframes show-word-2 {
+            0%, 33.2% { opacity: 0; }
+            33.3%   { opacity: 1; clip-path: inset(0 100% 0 0); }
+            38.3%   { opacity: 1; clip-path: inset(0 0 0 0); }
+            56.6%   { opacity: 1; clip-path: inset(0 0 0 0); }
+            66.6%   { opacity: 0; clip-path: inset(0 0 0 0); }
+            100%    { opacity: 0; }
+        }
+
+        @keyframes show-word-3 {
+            0%, 66.5% { opacity: 0; }
+            66.6%   { opacity: 1; clip-path: inset(0 100% 0 0); }
+            71.6%   { opacity: 1; clip-path: inset(0 0 0 0); }
+            90%     { opacity: 1; clip-path: inset(0 0 0 0); }
+            100%    { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="page-top" class="site-header">
+        <h1>Nisha TV</h1>
+    </header>
+
+    <!-- УПРАВЛЯЮЩИЕ РАДИОКНОПКИ -->
+    <input type="radio" name="author-filter" id="author-all" class="author-filter-radio" checked>
+    <input type="radio" name="author-filter" id="author-ksenya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-sonya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-varya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-max" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-noam" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-mia" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-shelli" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-dasha" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-blunder" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-elena" class="author-filter-radio">
+
+    <main class="main-layout">
+        <div class="articles-column">
+            <!-- СТАТЬИ -->
+            <article id="post-1" class="content-block expandable" data-author="Илья Панфилов">
+                <input type="checkbox" id="post-1-toggle" class="read-more-toggle">
+                <img src="https://placehold.co/720x405/f39c12/000000?text=Изображение+1" alt="Пример изображения">
+                <div class="text-container">
+                    <label for="post-1-toggle" class="title-label"><h2>Заголовок для поста с несколькими абзацами</h2></label>
+                    <div class="metadata">
+                        <a href="theater.html"><i class="metadata-icon icon-category"></i>Театр</a>
+                        <label for="author-blunder" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Илья Панфилов</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-27</span>
+                    </div>
+                    <div class="content-wrapper"><p>Нажмите на имя автора, чтобы увидеть только его посты.</p><div class="hidden-content"><p>We are often asked about the need of filming one-shot? The advantages of editing are obvious. They allow you to switch to more suitable plans, uence of special effects.
+This competition is for those who are just starting their way to the filmmaking industry, maybe even for those who are making their very first attempts in this business. Repeating exactly the same emotions and actions several times again and again is much more difficult. И не важно на каком языке написано.</p></div></div>
+                </div>
+                <label for="post-1-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-1-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-2" class="content-block" data-author="Мияшо">
+                <div class="video-container ratio-16-9">
+                    <iframe src="https://www.youtube.com/embed/LXb3EKWsInQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="text-container">
+                    <h3>Пост с видео 16:9</h3>
+                    <div class="metadata">
+                        <a href="movies.html"><i class="metadata-icon icon-category"></i>Кино</a>
+                        <label for="author-mia" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Мияшо</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-26</span>
+                    </div>
+                    <div class="content-wrapper"><p>Этот заголовок серый, так как под ним нет скрытого текста.</p></div>
+                </div>
+            </article>
+
+            <article id="post-3" class="content-block expandable" data-author="Zashebu">
+                <input type="checkbox" id="post-3-toggle" class="read-more-toggle">
+                 <div class="video-container ratio-4-3">
+                    <iframe src="https://www.youtube.com/embed/v_L4g0i9iC8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="text-container">
+                    <label for="post-3-toggle" class="title-label"><h2>Пост с видео 4:3</h2></label>
+                    <div class="metadata">
+                        <a href="music.html"><i class="metadata-icon icon-category"></i>Музыка</a>
+                        <label for="author-max" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Zashebu</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-25</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>Нажмите на этот оранжевый заголовок, чтобы раскрыть скрытый текст.</p>
+                        <div class="hidden-content"><p>Скрытый текст для демонстрации.</p></div>
+                    </div>
+                </div>
+                <label for="post-3-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-3-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-4" class="content-block" data-author="Нари">
+                <div class="text-container">
+                    <h3>Новая статья от Нари</h3>
+                    <div class="metadata">
+                        <a href="anime.html"><i class="metadata-icon icon-category"></i>Аниме</a>
+                        <label for="author-ksenya" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Нари</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-24</span>
+                    </div>
+                    <div class="content-wrapper"><p>Это простая текстовая статья без скрытого содержимого и без медиа-вложений.</p></div>
+                </div>
+            </article>
+
+            <article id="post-5" class="content-block expandable" data-author="Ивори">
+                <input type="checkbox" id="post-5-toggle" class="read-more-toggle">
+                <div class="text-container">
+                    <label for="post-5-toggle" class="title-label"><h2>Интересный разбор от Ивори</h2></label>
+                    <div class="metadata">
+                        <a href="games.html"><i class="metadata-icon icon-category"></i>Игры</a>
+                        <label for="author-sonya" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Ивори</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-23</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>Нажмите на заголовок, чтобы прочитать продолжение этой текстовой статьи.</p>
+                        <div class="hidden-content"><p>Это скрытая часть статьи от Ивори. Здесь может быть много дополнительного текста и рассуждений.</p></div>
+                    </div>
+                </div>
+                <label for="post-5-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-5-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-6" class="content-block" data-author="Басся">
+                <div class="text-container">
+                    <h3>Обзор новинок от Басся</h3>
+                    <div class="metadata">
+                        <a href="school.html"><i class="metadata-icon icon-category"></i>Школа</a>
+                        <label for="author-varya" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Басся</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-22</span>
+                    </div>
+                    <div class="content-wrapper"><p>Краткий обзор последних событий в мире кино. Только текст, только суть.</p></div>
+                </div>
+            </article>
+
+            <article id="post-7" class="content-block expandable" data-author="Ноам">
+                <input type="checkbox" id="post-7-toggle" class="read-more-toggle">
+                <div class="text-container">
+                    <label for="post-7-toggle" class="title-label"><h2>Глубокий анализ от Ноама</h2></label>
+                    <div class="metadata">
+                        <a href="fashion.html"><i class="metadata-icon icon-category"></i>Мода</a>
+                        <label for="author-noam" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Ноам</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-21</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>Основная мысль статьи изложена здесь. Для подробностей раскройте блок.</p>
+                        <div class="hidden-content"><p>Здесь Ноам делится более подробной информацией и техническими деталями.</p></div>
+                    </div>
+                </div>
+                <label for="post-7-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-7-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-8" class="content-block" data-author="Шейлли">
+                <div class="text-container">
+                    <h3>Последние тренды от Шейлли</h3>
+                    <div class="metadata">
+                        <a href="netanya.html"><i class="metadata-icon icon-category"></i>Нетания</a>
+                        <label for="author-shelli" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Шейлли</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-20</span>
+                    </div>
+                    <div class="content-wrapper"><p>Простой текстовый пост о моде, без лишних деталей и скрытых блоков.</p></div>
+                </div>
+            </article>
+
+            <article id="post-9" class="content-block expandable" data-author="Сади">
+                <input type="checkbox" id="post-9-toggle" class="read-more-toggle">
+                <div class="text-container">
+                    <label for="post-9-toggle" class="title-label"><h2>Психологическая заметка от Сади</h2></label>
+                    <div class="metadata">
+                        <a href="relationships.html"><i class="metadata-icon icon-category"></i>Психология</a>
+                        <label for="author-dasha" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Сади</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-19</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>Вводная часть психологической заметки. Нажмите, чтобы узнать больше.</p>
+                        <div class="hidden-content"><p>Полный текст заметки с размышлениями и выводами от автора Сади.</p></div>
+                    </div>
+                </div>
+                <label for="post-9-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-9-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-10" class="content-block" data-author="Елена Саханова">
+                <div class="text-container">
+                    <h3>Профессиональное мнение от Елены Сахановой</h3>
+                    <div class="metadata">
+                        <a href="site.html"><i class="metadata-icon icon-category"></i>Сайт</a>
+                        <label for="author-elena" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Елена Саханова</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-18</span>
+                    </div>
+                    <div class="content-wrapper"><p>Экспертный взгляд на текущую ситуацию. Статья представлена в простом текстовом формате.</p></div>
+                </div>
+            </article>
+        </div>
+
+        <nav class="sidebar-footer" aria-label="Навигация по странице">
+             
+            <div class="category-slider-container">
+    <div class="category-slider">
+        <div class="slider-track">
+            <a href="theater.html" class="slide"> <span class="slide-caption">Театр</span></a>
+            <a href="movies.html" class="slide"> <span class="slide-caption">Кино</span></a>
+            <a href="music.html" class="slide"> <span class="slide-caption">Музыка</span></a>
+            <a href="anime.html" class="slide"> <span class="slide-caption">Аниме</span></a>
+            <a href="games.html" class="slide"> <span class="slide-caption">Игры</span></a>
+            <a href="school.html" class="slide"> <span class="slide-caption">Школа</span></a>
+            <a href="fashion.html" class="slide"> <span class="slide-caption">Мода</span></a>
+            <a href="netanya.html" class="slide"> <span class="slide-caption">Нетания</span></a>
+            <a href="relationships.html" class="slide"> <span class="slide-caption">Психология</span></a>
+            <a href="site.html" class="slide"> <span class="slide-caption">Журналистика</span></a>
+        </div>
+    </div>
+</div>      
+            <a href="video.html" class="animated-video-link">
+        <div class="play-icon"></div>
+        <div class="text-container">
+            <span class="word-1">репортажи</span>
+            <span class="word-2">интервью</span>
+            <span class="word-3">передачи</span>
+        </div>
+    </a>          
+            <!-- БЛОКИ С ИНФОРМАЦИЕЙ ОБ АВТОРАХ -->
+            <div id="bio-blunder" class="author-bio-card"></div>
+            <div id="bio-mia" class="author-bio-card"></div>
+            <div id="bio-max" class="author-bio-card"></div>
+            <div id="bio-ksenya" class="author-bio-card"></div>
+            <div id="bio-sonya" class="author-bio-card"></div>
+            <div id="bio-varya" class="author-bio-card"></div>
+            <div id="bio-noam" class="author-bio-card"></div>
+            <div id="bio-shelli" class="author-bio-card"></div>
+            <div id="bio-dasha" class="author-bio-card"></div>
+            <div id="bio-elena" class="author-bio-card"></div>
+
+            <ul class="table-of-contents">
+                <li data-author="Илья Панфилов"><a href="#post-1">Заголовок для поста с несколькими абзацами</a><div class="toc-metadata">2023-10-27 | <label for="author-blunder" class="author-filter-trigger">Илья Панфилов</label></div></li>
+                <li class="toc-video-item" data-author="Мияшо"><a href="#post-2">Пост с видео 16:9</a><div class="toc-metadata">2023-10-26 | <label for="author-mia" class="author-filter-trigger">Мияшо</label></div></li>
+                <li class="toc-video-item" data-author="Zashebu"><a href="#post-3">Пост с видео 4:3</a><div class="toc-metadata">2023-10-25 | <label for="author-max" class="author-filter-trigger">Zashebu</label></div></li>
+                <li data-author="Нари"><a href="#post-4">Новая статья от Нари</a><div class="toc-metadata">2023-10-24 | <label for="author-ksenya" class="author-filter-trigger">Нари</label></div></li>
+                <li data-author="Ивори"><a href="#post-5">Интересный разбор от Ивори</a><div class="toc-metadata">2023-10-23 | <label for="author-sonya" class="author-filter-trigger">Ивори</label></div></li>
+                <li data-author="Басся"><a href="#post-6">Обзор новинок от Басся</a><div class="toc-metadata">2023-10-22 | <label for="author-varya" class="author-filter-trigger">Басся</label></div></li>
+                <li data-author="Ноам"><a href="#post-7">Глубокий анализ от Ноама</a><div class="toc-metadata">2023-10-21 | <label for="author-noam" class="author-filter-trigger">Ноам</label></div></li>
+                <li data-author="Шейлли"><a href="#post-8">Последние тренды от Шейлли</a><div class="toc-metadata">2023-10-20 | <label for="author-shelli" class="author-filter-trigger">Шейлли</label></div></li>
+                <li data-author="Сади"><a href="#post-9">Психологическая заметка от Сади</a><div class="toc-metadata">2023-10-19 | <label for="author-dasha" class="author-filter-trigger">Сади</label></div></li>
+                <li data-author="Елена Саханова"><a href="#post-10">Профессиональное мнение от Елены Сахановой</a><div class="toc-metadata">2023-10-18 | <label for="author-elena" class="author-filter-trigger">Елена Саханова</label></div></li>
+            </ul>
+            <div class="reset-button-container">
+                <div class="footer-controls">
+                    <label for="author-all" class="reset-button">Все авторы</label>
+                    <a href="#page-top" class="scroll-top-button" aria-label="Наверх"></a>
+                </div>
+            </div>
+
+            <div class="social-icons">
+                <a href="#" class="icon-youtube" aria-label="YouTube"></a>
+                <a href="#" class="icon-facebook" aria-label="Facebook"></a>
+                <a href="#" class="icon-telegram" aria-label="Telegram"></a>
+                <a href="#" class="icon-whatsapp" aria-label="WhatsApp"></a>
+            </div>
+                <footer class="copyright-footer">
+                <p>© Nisha TV <span id="current-year"></span></p>
+    </footer>
+         </nav>
+ </main>
+
+ <!-- СКРИПТЫ -->
+  <script src="script.js"></script>
+<script> document.getElementById('current-year').textContent = new Date().getFullYear(); </script>
+</body>
+</html>
