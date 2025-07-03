@@ -1,138 +1,256 @@
 
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nisha TV молодёжное телевидение Израиля</title>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+    <title>Nisha TV</title>
     <link rel="stylesheet" href="style.css">
-    <div class="page-metadata" data-category="Нетания" data-author="Ksenya" data-date="20.05.2025" data-video="https://www.youtube.com/embed/0_kmIj9oWc0"></div>  
 </head>
-<body class="bg-gray-900 text-white">
 
-<!-- Полупрозрачное меню -->
-<header class="header-menu bg-black bg-opacity-70 fixed w-full z-50">
-    <div class="container mx-auto px-4">
-        <nav class="flex items-center justify-between h-16">
-            <!-- Основное меню -->
-            <div class="flex items-center space-x-1 sm:space-x-2">
-            
-                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">NishaTV</h1>
-                <!-- Новости -->
-                <a href="index.html" class="menu-btn news-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                    <i class="menu-icon fas fa-newspaper text-gray-400 sm:mr-2"></i>
-                    <span class="menu-text">Новости</span>
-                </a>
-                <!-- Видео -->
-                <a href="video.html" class="menu-btn video-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                    <i class="menu-icon fas fa-video text-gray-400 sm:mr-2"></i>
-                    <span class="menu-text">Видео</span>
-                </a>
-                <!-- Рубрики с выпадающим меню -->
-                <div class="dropdown relative">
-                    <button class="menu-btn categories-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                        <i class="menu-icon fas fa-tags text-gray-400 sm:mr-2"></i>
-                        <span class="menu-text">Рубрики</span>
-                        <i class="dropdown-arrow fas fa-chevron-down ml-1 text-xs text-gray-400"></i>
-                    </button>
-                    <!-- Выпадающее меню рубрик -->
-                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-black bg-opacity-80 rounded-md shadow-lg py-1 z-50 backdrop-blur-sm">
-                        <a href="anime.html" class="category-item anime block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-dragon"></i></span>
-    <span class="category-text">Аниме</span>
-</a>
-<a href="games.html" class="category-item games block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-gamepad"></i></span>
-    <span class="category-text">Игры</span>
-</a>
-<a href="fashion.html" class="category-item fashion block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-tshirt"></i></span>
-    <span class="category-text">Мода</span>
-</a>
-<a href="music.html" class="category-item music block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-music"></i></span>
-    <span class="category-text">Музыка</span>
-</a>
-<a href="movies.html" class="category-item movies block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-film"></i></span>
-    <span class="category-text">Кино</span>
-</a>
-<a href="netanya.html" class="category-item netanya block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-umbrella-beach"></i></span>
-    <span class="category-text">Нетания</span>
-</a>
-<a href="relationships.html" class="category-item relationships block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-smile"></i></span>
-    <span class="category-text">Отношения</span>
-</a>
-<a href="theater.html" class="category-item theater block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-theater-masks"></i></span>
-    <span class="category-text">Театр</span>
-</a>
-<a href="school.html" class="category-item school block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-graduation-cap"></i></span>
-    <span class="category-text">Школа</span>
-</a>
+<body>
+    <header id="page-top" class="site-header">
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nisha TV</a></h1>
+    </header>
+
+    <!-- УПРАВЛЯЮЩИЕ РАДИОКНОПКИ -->
+    <input type="radio" name="author-filter" id="author-all" class="author-filter-radio" checked>
+    <input type="radio" name="author-filter" id="author-ksenya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-sonya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-varya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-max" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-noam" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-mia" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-shelli" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-dasha" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-blunder" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-elena" class="author-filter-radio">
+
+    <main class="main-layout">
+        <div class="articles-column">
+            <!-- СТАТЬИ -->
+            <article id="post-1" class="content-block expandable" data-author="Blunder">
+                <input type="checkbox" id="post-1-toggle" class="read-more-toggle">
+                <img src="https://placehold.co/720x405/f39c12/000000?text=Изображение+1" alt="Пример изображения">
+                <div class="text-container">
+                    <label for="post-1-toggle" class="title-label"><h2>Заголовок для поста с несколькими абзацами</h2></label>
+                    <div class="metadata">
+                        <a href="theater.html"><i class="metadata-icon icon-category"></i>Театр</a>
+                        <label for="author-blunder" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Blunder</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-27</span>
+                    </div>
+                    <div class="content-wrapper"><p>Нажмите на имя автора, чтобы увидеть только его посты.</p><div class="hidden-content"><p>We are often asked about the need of filming one-shot? The advantages of editing are obvious. They allow you to switch to more suitable plans, uence of special effects.
+This competition is for those who are just starting their way to the filmmaking industry, maybe even for those who are making their very first attempts in this business. Repeating exactly the same emotions and actions several times again and again is much more difficult. И не важно на каком языке написано.</p></div></div>
+                </div>
+                <label for="post-1-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-1-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-2" class="content-block" data-author="Мияшо">
+                <div class="video-container ratio-16-9">
+                    <iframe src="https://www.youtube.com/embed/LXb3EKWsInQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="text-container">
+                    <h3>Пост с видео 16:9</h3>
+                    <div class="metadata">
+                        <a href="movies.html"><i class="metadata-icon icon-category"></i>Кино</a>
+                        <label for="author-mia" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Мияшо</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-26</span>
+                    </div>
+                    <div class="content-wrapper"><p>Этот заголовок серый, так как под ним нет скрытого текста.</p></div>
+                </div>
+            </article>
+
+            <article id="post-3" class="content-block expandable" data-author="Zashebu">
+                <input type="checkbox" id="post-3-toggle" class="read-more-toggle">
+                 <div class="video-container ratio-4-3">
+                    <iframe src="https://www.youtube.com/embed/v_L4g0i9iC8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="text-container">
+                    <label for="post-3-toggle" class="title-label"><h2>Пост с видео 4:3</h2></label>
+                    <div class="metadata">
+                        <a href="music.html"><i class="metadata-icon icon-category"></i>Музыка</a>
+                        <label for="author-max" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Zashebu</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-25</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>Нажмите на этот оранжевый заголовок, чтобы раскрыть скрытый текст.</p>
+                        <div class="hidden-content"><p>Скрытый текст для демонстрации.</p></div>
                     </div>
                 </div>
-            </div>
+                <label for="post-3-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-3-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
 
-            <!-- Поиск -->
-            <div class="relative ml-2 search-container">
-                <input type="text" id="searchInput" placeholder="Поиск..." 
-                       class="bg-gray-700 bg-opacity-50 text-white px-4 py-1 rounded-full text-sm 
-                              focus:outline-none focus:ring-1 focus:ring-white focus:bg-opacity-70
-                              w-24 sm:w-40 transition-all duration-300 placeholder-gray-300">
-                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
-                    <i class="fas fa-search"></i>
-                </button>
-                <!-- Результаты поиска -->
-                <div id="searchResults" class="search-results-dropdown hidden"></div>
-            </div>
-        </nav>
+            <article id="post-4" class="content-block" data-author="Нари">
+                <div class="text-container">
+                    <h3>Новая статья от Нари</h3>
+                    <div class="metadata">
+                        <a href="anime.html"><i class="metadata-icon icon-category"></i>Аниме</a>
+                        <label for="author-ksenya" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Нари</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-24</span>
+                    </div>
+                    <div class="content-wrapper"><p>Это простая текстовая статья без скрытого содержимого и без медиа-вложений.</p></div>
+                </div>
+            </article>
+
+            <article id="post-5" class="content-block expandable" data-author="Ивори">
+                <input type="checkbox" id="post-5-toggle" class="read-more-toggle">
+                <div class="text-container">
+                    <label for="post-5-toggle" class="title-label"><h2>Интересный разбор от Ивори</h2></label>
+                    <div class="metadata">
+                        <a href="games.html"><i class="metadata-icon icon-category"></i>Игры</a>
+                        <label for="author-sonya" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Ивори</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-23</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>Нажмите на заголовок, чтобы прочитать продолжение этой текстовой статьи.</p>
+                        <div class="hidden-content"><p>Это скрытая часть статьи от Ивори. Здесь может быть много дополнительного текста и рассуждений.</p></div>
+                    </div>
+                </div>
+                <label for="post-5-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-5-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-6" class="content-block" data-author="Басся">
+                <div class="text-container">
+                    <h3>Обзор новинок от Басся</h3>
+                    <div class="metadata">
+                        <a href="school.html"><i class="metadata-icon icon-category"></i>Школа</a>
+                        <label for="author-varya" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Басся</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-22</span>
+                    </div>
+                    <div class="content-wrapper"><p>Краткий обзор последних событий в мире кино. Только текст, только суть.</p></div>
+                </div>
+            </article>
+
+            <article id="post-7" class="content-block expandable" data-author="Ноам">
+                <input type="checkbox" id="post-7-toggle" class="read-more-toggle">
+                <div class="text-container">
+                    <label for="post-7-toggle" class="title-label"><h2>Глубокий анализ от Ноама</h2></label>
+                    <div class="metadata">
+                        <a href="fashion.html"><i class="metadata-icon icon-category"></i>Мода</a>
+                        <label for="author-noam" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Ноам</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-21</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>Основная мысль статьи изложена здесь. Для подробностей раскройте блок.</p>
+                        <div class="hidden-content"><p>Здесь Ноам делится более подробной информацией и техническими деталями.</p></div>
+                    </div>
+                </div>
+                <label for="post-7-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-7-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-8" class="content-block" data-author="Шейлли">
+                <div class="text-container">
+                    <h3>Последние тренды от Шейлли</h3>
+                    <div class="metadata">
+                        <a href="netanya.html"><i class="metadata-icon icon-category"></i>Нетания</a>
+                        <label for="author-shelli" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Шейлли</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-20</span>
+                    </div>
+                    <div class="content-wrapper"><p>Простой текстовый пост о моде, без лишних деталей и скрытых блоков.</p></div>
+                </div>
+            </article>
+
+            <article id="post-9" class="content-block expandable" data-author="Сади">
+                <input type="checkbox" id="post-9-toggle" class="read-more-toggle">
+                <div class="text-container">
+                    <label for="post-9-toggle" class="title-label"><h2>Психологическая заметка от Сади</h2></label>
+                    <div class="metadata">
+                        <a href="relationships.html"><i class="metadata-icon icon-category"></i>Психология</a>
+                        <label for="author-dasha" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Сади</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-19</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>Вводная часть психологической заметки. Нажмите, чтобы узнать больше.</p>
+                        <div class="hidden-content"><p>Полный текст заметки с размышлениями и выводами от автора Сади.</p></div>
+                    </div>
+                </div>
+                <label for="post-9-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-9-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+
+            <article id="post-10" class="content-block" data-author="Елена Саханова">
+                <div class="text-container">
+                    <h3>Профессиональное мнение от Елены Сахановой</h3>
+                    <div class="metadata">
+                        <a href="journalism.html"><i class="metadata-icon icon-category"></i>Журналистика</a>
+                        <label for="author-elena" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Елена Саханова</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-18</span>
+                    </div>
+                    <div class="content-wrapper"><p>Экспертный взгляд на текущую ситуацию. Статья представлена в простом текстовом формате.</p></div>
+                </div>
+            </article>
+        </div>
+
+        <!-- ПОДВАЛ -->
+        <nav class="sidebar-footer" aria-label="Навигация по странице">             
+            <div class="category-slider-container">
+    <div class="category-slider">
+        <div class="slider-track">
+            <a href="theater.html" class="slide"> <span class="slide-caption">Театр</span></a>
+            <a href="movies.html" class="slide"> <span class="slide-caption">Кино</span></a>
+            <a href="music.html" class="slide"> <span class="slide-caption">Музыка</span></a>
+            <a href="anime.html" class="slide"> <span class="slide-caption">Аниме</span></a>
+            <a href="games.html" class="slide"> <span class="slide-caption">Игры</span></a>
+            <a href="school.html" class="slide"> <span class="slide-caption">Школа</span></a>
+            <a href="fashion.html" class="slide"> <span class="slide-caption">Мода</span></a>
+            <a href="netanya.html" class="slide"> <span class="slide-caption">Нетания</span></a>
+            <a href="relationships.html" class="slide"> <span class="slide-caption">Психология</span></a>
+            <a href="journalism.html" class="slide"> <span class="slide-caption">Журналистика</span></a>
+        </div>
     </div>
-</header>
+</div>      
+            <a href="video.html" class="animated-video-link">
+        <div class="play-icon"></div>
+        <div class="text-container">
+            <span class="word-1">репортажи</span>
+            <span class="word-2">интервью</span>
+            <span class="word-3">передачи</span>
+        </div>
+    </a>          
+            <!-- БЛОКИ С ИНФОРМАЦИЕЙ ОБ АВТОРАХ -->
+            <div id="bio-blunder" class="author-bio-card"></div>
+            <div id="bio-mia" class="author-bio-card"></div>
+            <div id="bio-max" class="author-bio-card"></div>
+            <div id="bio-ksenya" class="author-bio-card"></div>
+            <div id="bio-sonya" class="author-bio-card"></div>
+            <div id="bio-varya" class="author-bio-card"></div>
+            <div id="bio-noam" class="author-bio-card"></div>
+            <div id="bio-shelli" class="author-bio-card"></div>
+            <div id="bio-dasha" class="author-bio-card"></div>
+            <div id="bio-elena" class="author-bio-card"></div>
 
-<!-- Контент страницы -->
-
-    <main class="container mx-auto px-4 py-8">
-        <section class="mb-12 glass-card rounded-2xl p-8">
-            <h2 class="text-3xl font-bold mb-6 text-center text-white">Страница находится в разработке</h2>
-            <p class="text-lg mb-4 text-gray-300">
-                Это тестовая страница раздела видео. Вся актуальная информация находится в разделе <a href="index.html">новостей</a>.
-            </p><br>
-            <div class="glass-card rounded-xl p-6 mb-8">
-                <p class="text-lg text-gray-300">
-                    Публикация материалов, запуск канала и сайта NishaTV состоится 1 июля 2025 года.
-                </p>
-<iframe width="1076" height="605" src="https://www.youtube.com/embed/GwvvRNspbrk" title="Nisha TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <p class="text-lg text-gray-300">
-                   Скоро здесь будет видеоконтент нашего канала</p><div class="page-metadata" data-video="https://www.youtube.com/embed/0_kmIj9oWc0"> <iframe width="1076" height="605" src="https://www.youtube.com/embed/fb8pa2zliU4" title="Репортаж Детки в клетке" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
-            </div>
-                            <div class="mt-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white p-4 rounded-lg text-center glass-card">
-                    <h4 class="font-bold text-xl mb-2">Обратный отсчёт до запуска!</h4>
-                    <div class="flex justify-center space-x-4" id="countdown">
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="days">00</div>
-                            <div class="text-sm">дней</div>
-                        </div>
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="hours">00</div>
-                            <div class="text-sm">часов</div>
-                        </div>
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="minutes">00</div>
-                            <div class="text-sm">минут</div>
-                        </div>
-                    </div>
+            <ul class="table-of-contents">
+                <li data-author="Blunder"><a href="#post-1">Заголовок для поста с несколькими абзацами</a><div class="toc-metadata">2023-10-27 | <label for="author-blunder" class="author-filter-trigger">Blunder</label></div></li>
+                <li class="toc-video-item" data-author="Мияшо"><a href="#post-2">Пост с видео 16:9</a><div class="toc-metadata">2023-10-26 | <label for="author-mia" class="author-filter-trigger">Мияшо</label></div></li>
+                <li class="toc-video-item" data-author="Zashebu"><a href="#post-3">Пост с видео 4:3</a><div class="toc-metadata">2023-10-25 | <label for="author-max" class="author-filter-trigger">Zashebu</label></div></li>
+                <li data-author="Нари"><a href="#post-4">Новая статья от Нари</a><div class="toc-metadata">2023-10-24 | <label for="author-ksenya" class="author-filter-trigger">Нари</label></div></li>
+                <li data-author="Ивори"><a href="#post-5">Интересный разбор от Ивори</a><div class="toc-metadata">2023-10-23 | <label for="author-sonya" class="author-filter-trigger">Ивори</label></div></li>
+                <li data-author="Басся"><a href="#post-6">Обзор новинок от Басся</a><div class="toc-metadata">2023-10-22 | <label for="author-varya" class="author-filter-trigger">Басся</label></div></li>
+                <li data-author="Ноам"><a href="#post-7">Глубокий анализ от Ноама</a><div class="toc-metadata">2023-10-21 | <label for="author-noam" class="author-filter-trigger">Ноам</label></div></li>
+                <li data-author="Шейлли"><a href="#post-8">Последние тренды от Шейлли</a><div class="toc-metadata">2023-10-20 | <label for="author-shelli" class="author-filter-trigger">Шейлли</label></div></li>
+                <li data-author="Сади"><a href="#post-9">Психологическая заметка от Сади</a><div class="toc-metadata">2023-10-19 | <label for="author-dasha" class="author-filter-trigger">Сади</label></div></li>
+                <li data-author="Елена Саханова"><a href="#post-10">Профессиональное мнение от Елены Сахановой</a><div class="toc-metadata">2023-10-18 | <label for="author-elena" class="author-filter-trigger">Елена Саханова</label></div></li>
+            </ul>
+            <div class="reset-button-container">
+                <div class="footer-controls">
+                    <label for="author-all" class="reset-button">Все авторы</label>
+                    <a href="#page-top" class="scroll-top-button" aria-label="Наверх"></a>
                 </div>
             </div>
-        </section>
-        </main>
-             <script src="https://cdn.tailwindcss.com "></script>
-                <script src="search.js" defer></script>
-<script src="menu.js" defer></script>
-<script src="start.js" defer></script>
+
+            <div class="social-icons">
+                <a href="#" class="icon-youtube" aria-label="YouTube"></a>
+                <a href="#" class="icon-facebook" aria-label="Facebook"></a>
+                <a href="#" class="icon-telegram" aria-label="Telegram"></a>
+                <a href="#" class="icon-whatsapp" aria-label="WhatsApp"></a>
+            </div>
+                <footer class="copyright-footer">
+                <p>© Nisha TV <span id="current-year"></span></p>
+    </footer>
+         </nav>
+ </main>
+
+ <!-- СКРИПТЫ -->
+  <script src="script.js"></script>
+<script> document.getElementById('current-year').textContent = new Date().getFullYear(); </script>
+</body>
 </html>

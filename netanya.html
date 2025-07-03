@@ -1,153 +1,140 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Нетания, город глазами подростков. Nisha TV молодёжное телевидение Израиля</title>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+    <title>Nisha TV</title>
     <link rel="stylesheet" href="style.css">
-    <div class="page-metadata" data-category="Нетания" data-author="Ksenya" data-date="20.05.2025" data-video="https://www.youtube.com/embed/0_kmIj9oWc0"></div>  
 </head>
-<body class="bg-gray-900 text-white">
 
-<!-- Полупрозрачное меню -->
-<header class="header-menu bg-black bg-opacity-70 fixed w-full z-50">
-    <div class="container mx-auto px-4">
-        <nav class="flex items-center justify-between h-16">
-            <!-- Основное меню -->
-            <div class="flex items-center space-x-1 sm:space-x-2">
-            
-                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">NishaTV</h1>
-                <!-- Новости -->
-                <a href="index.html" class="menu-btn news-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                    <i class="menu-icon fas fa-newspaper text-gray-400 sm:mr-2"></i>
-                    <span class="menu-text">Новости</span>
-                </a>
-                <!-- Видео -->
-                <a href="video.html" class="menu-btn video-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                    <i class="menu-icon fas fa-video text-gray-400 sm:mr-2"></i>
-                    <span class="menu-text">Видео</span>
-                </a>
-                <!-- Рубрики с выпадающим меню -->
-                <div class="dropdown relative">
-                    <button class="menu-btn categories-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                        <i class="menu-icon fas fa-tags text-gray-400 sm:mr-2"></i>
-                        <span class="menu-text">Рубрики</span>
-                        <i class="dropdown-arrow fas fa-chevron-down ml-1 text-xs text-gray-400"></i>
-                    </button>
-                    <!-- Выпадающее меню рубрик -->
-                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-black bg-opacity-80 rounded-md shadow-lg py-1 z-50 backdrop-blur-sm">
-                        <a href="anime.html" class="category-item anime block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-dragon"></i></span>
-    <span class="category-text">Аниме</span>
-</a>
-<a href="games.html" class="category-item games block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-gamepad"></i></span>
-    <span class="category-text">Игры</span>
-</a>
-<a href="fashion.html" class="category-item fashion block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-tshirt"></i></span>
-    <span class="category-text">Мода</span>
-</a>
-<a href="music.html" class="category-item music block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-music"></i></span>
-    <span class="category-text">Музыка</span>
-</a>
-<a href="movies.html" class="category-item movies block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-film"></i></span>
-    <span class="category-text">Кино</span>
-</a>
-<a href="netanya.html" class="category-item netanya block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-umbrella-beach"></i></span>
-    <span class="category-text">Нетания</span>
-</a>
-<a href="relationships.html" class="category-item relationships block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-smile"></i></span>
-    <span class="category-text">Отношения</span>
-</a>
-<a href="theater.html" class="category-item theater block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-theater-masks"></i></span>
-    <span class="category-text">Театр</span>
-</a>
-<a href="school.html" class="category-item school block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-graduation-cap"></i></span>
-    <span class="category-text">Школа</span>
-</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Поиск -->
-            <div class="relative ml-2 search-container">
-                <input type="text" id="searchInput" placeholder="Поиск..." 
-                       class="bg-gray-700 bg-opacity-50 text-white px-4 py-1 rounded-full text-sm 
-                              focus:outline-none focus:ring-1 focus:ring-white focus:bg-opacity-70
-                              w-24 sm:w-40 transition-all duration-300 placeholder-gray-300">
-                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
-                    <i class="fas fa-search"></i>
-                </button>
-                <!-- Результаты поиска -->
-                <div id="searchResults" class="search-results-dropdown hidden"></div>
-            </div>
-        </nav>
-    </div>
-</header>
-
-<!-- Контент страницы -->
-
-    <body class="min-h-screen transition-colors duration-300 bg-gradient-to-br from-gray-900 to-black">
-    <header class="glass-card py-6 shadow-lg">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <i class="fas fa-tv text-3xl text-purple-400"></i>
-                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Nisha TV</h1>
-            </div>
-            <button id="theme-toggle" class="bg-white dark:bg-gray-800 text-blue-600 dark:text-yellow-300 p-2 rounded-full shadow-md hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors">
-                <i class="fas fa-sun"></i>
-            </button>
-        </div>
+<body>
+    <header id="page-top" class="site-header">
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nisha TV</a></h1>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
-        <section class="mb-12 glass-card rounded-2xl p-8">
-            <h2 class="text-3xl font-bold mb-6 text-center text-white">Страница находится в разработке</h2>
-            <p class="text-lg mb-4 text-gray-300">
-                Это тестовая версия сайта. Страницы рубрик будут доступны позже. Вся актуальная информация находится в разделе <a href="index.html">новостей</a>.
-            </p><br>
-            <div class="glass-card rounded-xl p-6 mb-8">
-                <p class="text-lg mb-4 text-gray-300">
-                    Если вы являетесь автором этой рубрики - пожалуйста присылайте свои видео, статьи и фотографии в наш телеграмм канал.
-                </p>
-                <p class="text-lg mb-4 text-gray-300">
-                    Все ваши материалы будут опубликованы на нашем сайте и в социальных сетях.
-                </p>
-                <p class="text-lg text-gray-300">
-                    Последний день для подачи материалов - 26 июня. Публикация материалов, запуск канала и сайта NishaTV состоится 1 июля 2025 года.
-                </p>
-            </div>
-                            <div class="mt-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white p-4 rounded-lg text-center glass-card">
-                    <h4 class="font-bold text-xl mb-2">Обратный отсчёт до запуска!</h4>
-                    <div class="flex justify-center space-x-4" id="countdown">
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="days">00</div>
-                            <div class="text-sm">дней</div>
-                        </div>
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="hours">00</div>
-                            <div class="text-sm">часов</div>
-                        </div>
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="minutes">00</div>
-                            <div class="text-sm">минут</div>
-                        </div>
+    <!-- УПРАВЛЯЮЩИЕ РАДИОКНОПКИ -->
+    <input type="radio" name="author-filter" id="author-all" class="author-filter-radio" checked>
+    <input type="radio" name="author-filter" id="author-ksenya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-sonya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-varya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-max" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-noam" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-mia" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-shelli" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-dasha" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-blunder" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-elena" class="author-filter-radio">
+
+    <main class="main-layout">
+        <div class="articles-column">
+            <!-- СТАТЬИ -->
+            
+            <article class="content-block" data-author="Zashebu">
+                <div class="video-container ratio-16-9">
+                    <iframe src="https://www.youtube.com/embed/CLCrnMlx5bM?list=PL6o57jBBX3mGt3ExEPsSFLbqiVCgUELzX" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="text-container">
+                    <h3>Открытие рубрики Аниме</h3>
+                    <div class="metadata">
+                        <label for="author-max" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Zashebu</label>
+                        <span><i class="metadata-icon icon-date"></i>2025-07-01</span>
+                    </div>
+                    <div class="content-wrapper"><p>Это пока просто текст. На его месте появится тот, что вы напишите сами</p></div>
+                </div>
+            </article>
+
+            <article id="post-3" class="content-block expandable" data-author="Нари">
+                 <div class="video-container ratio-4-3">
+                    <iframe src="https://www.youtube.com/embed/_CtTBfKMZoU?list=PL6o57jBBX3mGt3ExEPsSFLbqiVCgUELzX" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="text-container">
+                    <h3>Пример статьи от Нари</h3>
+                    <div class="metadata">
+                            <label for="author-ksenya" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Нари</label>
+                        <span><i class="metadata-icon icon-date"></i>2023-10-25</span>
+                    </div>
+                    <div class="content-wrapper">
+                        <p>В каждой рубрике может быть несколько авторов. Нажмите на имя автора, чтобы увидеть только его посты.</p>
+                        <div class="hidden-content"><p>Скрытый текст для демонстрации.</p></div>
                     </div>
                 </div>
-            </div>
-<body>
+            </article>
 
+            <article id="post-4" class="content-block" data-author="Нари">
+                <div class="text-container">
+                    <h3>Пост без изображения</h3>
+                    <div class="metadata">
+                        <label for="author-ksenya" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Нари</label>
+                        <span><i class="metadata-icon icon-date"></i>2025-07-01</span>
+                    </div>
+                    <div class="content-wrapper"><p>Так будет выглядеть статья у которой нет видео и изображений. Просто текст. Изображение под этим текстом относится уже к следующей статье.</p></div>
+                </div>
+            </article>
+
+                        <article id="post-1" class="content-block expandable" data-author="Blunder">
+                <input type="checkbox" id="post-1-toggle" class="read-more-toggle">
+                <img src="https://placehold.co/720x405/f39c12/000000?text=Изображение+1" alt="Пример изображения">
+                <div class="text-container">
+                    <label for="post-1-toggle" class="title-label"><h2>Пост с изображением</h2></label>
+                    <div class="metadata">
+                        <a href="theater.html"><i class="metadata-icon icon-category"></i>Театр</a>
+                        <label for="author-blunder" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Blunder</label>
+                        <span><i class="metadata-icon icon-date"></i>2025-07-01</span>
+                    </div>
+                    <div class="content-wrapper"><p>Может возникнуть такая ситуация, что статья с изображением или видео будет иметь отношение сразу к двум рубрикам. Здесь якобы такая ситуация. Кроме того здесь длинный текст, который раскрывается при нажатии на кнопку или оранжевый заголовок статьи</p><div class="hidden-content">
+                        <p>Статьи с изображением, как и профили с изображениями смотрятся лучше. Поэтому присылайте свои изображения, заполняйте профили и ваша аудитория будет знать кто для неё работает.</p></div></div>
+                </div>
+                <label for="post-1-toggle" class="read-more-button">&gt;&gt;&gt;</label><label for="post-1-toggle" class="read-less-button">&lt;&lt;&lt;</label>
+            </article>
+            </div>
+
+        <!-- ПОДВАЛ -->
+        <nav class="sidebar-footer" aria-label="Навигация по странице">
+            
+            <a href="video.html" class="animated-video-link">
+        <div class="play-icon"></div>
+        <div class="text-container">
+            <span class="word-1">репортажи</span>
+            <span class="word-2">интервью</span>
+            <span class="word-3">передачи</span>
+        </div>
+    </a>
+
+            <div class="category-slider-container"><div class="category-slider"><div class="slider-track"></div></div></div>       
+       <br>     
+       <div class="search-container">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input type="search" id="search-input" placeholder="Поиск по статьям...">
+    <button id="search-clear-btn" class="search-clear-btn" aria-label="Очистить поиск">×</button>
+</div>       
+            <!-- БЛОКИ С ИНФОРМАЦИЕЙ ОБ АВТОРАХ -->
+<div id="bio-cards-container"></div>
+<!-- Место для автоматической вставки оглавления -->
+<ul id="table-of-contents-container" class="table-of-contents"></ul>
+            <div class="reset-button-container">
+                <div class="footer-controls">
+                    <label for="author-all" class="reset-button">Все авторы</label>
+                    <a href="#page-top" class="scroll-top-button" aria-label="Наверх"></a>
+                </div>
+            </div>
+
+            <div class="social-icons">
+                <a href="https://www.youtube.com/@tvnisha" class="icon-youtube" aria-label="YouTube"></a>
+                <a href="https://www.facebook.com/5nitsa" class="icon-facebook" aria-label="Facebook"></a>
+                <a href="#" class="icon-telegram" aria-label="Telegram"></a>
+                <a href="#" class="icon-whatsapp" aria-label="WhatsApp"></a>
+            </div>
+                <footer class="copyright-footer">
+                <p>© Nisha TV <span id="current-year"></span></p>
+    </footer>
+         </nav>
+ </main>
+
+<script src="script.js"></script>
+<script src="search.js"></script>
+<script src="category.js"></script>
+<script> document.getElementById('current-year').textContent = new Date().getFullYear(); </script>
 </body>
-             <script src="https://cdn.tailwindcss.com "></script>
-                <script src="search.js" defer></script>
-<script src="menu.js" defer></script>
-<script src="start.js" defer></script>
 </html>

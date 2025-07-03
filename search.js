@@ -1,158 +1,61 @@
-// search.js — поиск по сайту
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // ===================================================================
+    // --- ЛОГИКА ПОИСКА ---
+    // ===================================================================
+    const searchInput = document.getElementById('search-input');
+    const searchClearBtn = document.getElementById('search-clear-btn');
+    const articles = document.querySelectorAll('.articles-column .content-block');
+    const authorFilters = document.querySelectorAll('input[name="author-filter"]');
+    const allAuthorsRadio = document.getElementById('author-all');
 
-const pages = [
-  "index.html",
-  "video.html",
-  "news.html",
-  "anime.html",
-  "games.html",
-  "fashion.html",
-  "music.html",
-  "movies.html",
-  "netanya.html",
-  "relationships.html",
-  "theater.html",
-  "school.html"
-];
+    if (!searchInput) return; // Если на странице нет поиска, ничего не делаем
 
-const searchInput = document.getElementById("searchInput");
-const resultsBox = document.getElementById("searchResults");
+    function filterArticles() {
+        const query = searchInput.value.toLowerCase().trim();
+        
+        // Показываем или скрываем кнопку очистки
+        searchClearBtn.style.display = query.length > 0 ? 'block' : 'none';
+        
+        // Если поиск активен, сбрасываем фильтр авторов на "Все"
+        if (query.length > 0 && allAuthorsRadio && !allAuthorsRadio.checked) {
+            allAuthorsRadio.checked = true;
+            // Инициируем событие 'change', чтобы CSS-фильтр сработал
+            allAuthorsRadio.dispatchEvent(new Event('change'));
+        }
 
-function extractYouTubeID(url) {
-  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[7] && match[7].length === 11 ? match[7] : false;
-}
-
-async function performSearch(query) {
-  if (!searchInput || !resultsBox) return;
-
-  if (!query.trim()) {
-    resultsBox.innerHTML = "";
-    resultsBox.classList.add("hidden");
-    return;
-  }
-
-  let foundResults = [];
-
-  for (const page of pages) {
-    try {
-      const response = await fetch(page);
-      const text = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, "text/html");
-
-      // Извлечение метаданных
-      const metadata = doc.querySelector(".page-metadata");
-      const title = doc.title || page;
-
-      let category = "",
-          author = "",
-          date = "",
-          videoUrl = "",
-          contentText = "";
-
-      if (metadata) {
-        category = metadata.getAttribute("data-category") || "";
-        author = metadata.getAttribute("data-author") || "";
-        date = metadata.getAttribute("data-date") || "";
-        videoUrl = metadata.getAttribute("data-video") || "";
-        contentText = metadata.textContent + " " + doc.body.textContent;
-      } else {
-        contentText = doc.body.textContent;
-      }
-
-      const queryLC = query.toLowerCase();
-      const contentLC = contentText.toLowerCase();
-
-      if (contentLC.includes(queryLC)) {
-        const snippetStart = Math.max(0, contentLC.indexOf(queryLC) - 60);
-        const snippetEnd = Math.min(contentText.length, contentLC.indexOf(queryLC) + queryLC.length + 120);
-        const snippet = contentText.slice(snippetStart, snippetEnd);
-
-        foundResults.push({
-          url: page,
-          title: title,
-          category: category,
-          author: author,
-          date: date,
-          videoUrl: videoUrl,
-          snippet: snippet.substring(0, 120) + "..."
+        articles.forEach(article => {
+            // Проверяем, видима ли статья согласно CSS-фильтрам
+            const isVisibleByCss = window.getComputedStyle(article).display !== 'none';
+            
+            if (query.length > 0) { // Если есть поисковый запрос
+                const articleText = article.textContent.toLowerCase();
+                const isMatch = articleText.includes(query);
+                article.style.display = isMatch ? 'flex' : 'none'; // Используем flex для десктопа или block для мобильных в зависимости от стилей
+            } else { // Если поисковый запрос пуст
+                article.style.display = ''; // Сбрасываем инлайновый стиль, чтобы CSS снова управлял видимостью
+            }
         });
-      }
-    } catch (err) {
-      console.error(`Ошибка загрузки ${page}:`, err);
-    }
-  }
-
-  showResults(foundResults);
-}
-
-function getCategoryIcon(category) {
-  switch (category) {
-    case "Аниме": return '<i class="fas fa-dragon category-icon-search"></i>';
-    case "Игры": return '<i class="fas fa-gamepad category-icon-search"></i>';
-    case "Мода": return '<i class="fas fa-tshirt category-icon-search"></i>';
-    case "Музыка": return '<i class="fas fa-music category-icon-search"></i>';
-    case "Кино": return '<i class="fas fa-film category-icon-search"></i>';
-    case "Нетания": return '<i class="fas fa-umbrella-beach category-icon-search"></i>';
-    case "Отношения": return '<i class="fas fa-smile category-icon-search"></i>';
-    case "Театр": return '<i class="fas fa-theater-masks category-icon-search"></i>';
-    case "Школа": return '<i class="fas fa-graduation-cap category-icon-search"></i>';
-    default: return "";
-  }
-}
-
-function showResults(results) {
-  resultsBox.innerHTML = "";
-  if (results.length === 0) {
-    resultsBox.classList.remove("hidden");
-    resultsBox.innerHTML = '<div class="text-gray-400 text-sm p-2">Ничего не найдено</div>';
-    return;
-  }
-
-  results.forEach(result => {
-    const item = document.createElement("div");
-    item.className = "search-result-item";
-
-    const icon = getCategoryIcon(result.category);
-    const videoBadge = result.videoUrl
-      ? '<i class="fas fa-video video-badge ml-2 text-red-500"></i>'
-      : "";
-
-    let metaHTML = "";
-    if (result.category || result.author || result.date) {
-      metaHTML = `
-        <div class="search-result-meta">
-          ${icon} ${result.category}
-          ${videoBadge}
-          ${result.author ? ` | Автор: ${result.author}` : ""}
-          ${result.date ? ` | Дата: ${result.date}` : ""}
-        </div>
-      `;
     }
 
-    item.innerHTML = `
-      <a href="${result.url}" target="_blank" class="search-result-title">${result.title}</a>
-      ${metaHTML}
-      <div class="result-snippet">${result.snippet}</div>
-    `;
+    // Очистка поиска по клику на кнопку
+    searchClearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        filterArticles(); // Вызываем фильтрацию, чтобы все статьи снова появились
+        searchInput.focus();
+    });
+    
+    // Запускаем фильтрацию при каждом вводе символа
+    searchInput.addEventListener('input', filterArticles);
 
-    resultsBox.appendChild(item);
-  });
-
-  resultsBox.classList.remove("hidden");
-}
-
-if (searchInput && resultsBox) {
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value;
-    performSearch(query);
-  });
-
-  document.addEventListener("click", e => {
-    if (!e.target.closest(".search-container")) {
-      resultsBox.classList.add("hidden");
-    }
-  });
-}
+    // Если пользователь выбирает фильтр по автору, очищаем поиск
+    authorFilters.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (searchInput.value.length > 0) {
+                searchInput.value = '';
+                searchClearBtn.style.display = 'none';
+                // CSS сам отфильтрует статьи после смены радиокнопки
+            }
+        });
+    });
+});

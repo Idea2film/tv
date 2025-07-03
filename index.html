@@ -1,500 +1,114 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nisha TV молодёжное телевидение Израиля</title>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
-    <link rel="stylesheet" href="style.css">  
+    <title>Nisha TV</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-900 text-white">
 
-<!-- Полупрозрачное меню -->
-<header class="header-menu bg-black bg-opacity-70 fixed w-full z-50">
-    <div class="container mx-auto px-4">
-        <nav class="flex items-center justify-between h-16">
-            <!-- Основное меню -->
-            <div class="flex items-center space-x-1 sm:space-x-2">
-            
-                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">NishaTV</h1>
-                <!-- Новости -->
-                <a href="index.html" class="menu-btn news-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                    <i class="menu-icon fas fa-newspaper text-gray-400 sm:mr-2"></i>
-                    <span class="menu-text">Новости</span>
-                </a>
-                <!-- Видео -->
-                <a href="video.html" class="menu-btn video-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                    <i class="menu-icon fas fa-video text-gray-400 sm:mr-2"></i>
-                    <span class="menu-text">Видео</span>
-                </a>
-                <!-- Рубрики с выпадающим меню -->
-                <div class="dropdown relative">
-                    <button class="menu-btn categories-btn bg-black bg-opacity-60 text-white px-3 py-2 rounded-full flex items-center">
-                        <i class="menu-icon fas fa-tags text-gray-400 sm:mr-2"></i>
-                        <span class="menu-text">Рубрики</span>
-                        <i class="dropdown-arrow fas fa-chevron-down ml-1 text-xs text-gray-400"></i>
-                    </button>
-                    <!-- Выпадающее меню рубрик -->
-                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-black bg-opacity-80 rounded-md shadow-lg py-1 z-50 backdrop-blur-sm">
-                        <a href="anime.html" class="category-item anime block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-dragon"></i></span>
-    <span class="category-text">Аниме</span>
-</a>
-<a href="games.html" class="category-item games block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-gamepad"></i></span>
-    <span class="category-text">Игры</span>
-</a>
-<a href="fashion.html" class="category-item fashion block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-tshirt"></i></span>
-    <span class="category-text">Мода</span>
-</a>
-<a href="music.html" class="category-item music block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-music"></i></span>
-    <span class="category-text">Музыка</span>
-</a>
-<a href="movies.html" class="category-item movies block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-film"></i></span>
-    <span class="category-text">Кино</span>
-</a>
-<a href="netanya.html" class="category-item netanya block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-umbrella-beach"></i></span>
-    <span class="category-text">Нетания</span>
-</a>
-<a href="relationships.html" class="category-item relationships block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-smile"></i></span>
-    <span class="category-text">Отношения</span>
-</a>
-<a href="theater.html" class="category-item theater block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-theater-masks"></i></span>
-    <span class="category-text">Театр</span>
-</a>
-<a href="school.html" class="category-item school block px-4 py-2 text-white hover:bg-opacity-70">
-    <span class="category-icon"><i class="fas fa-graduation-cap"></i></span>
-    <span class="category-text">Школа</span>
-</a>
-                    </div>
-                </div>
-            </div>
+<body>
+    <header id="page-top" class="site-header">
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nisha TV</a></h1>
+    </header>
 
-            <!-- Поиск -->
-            <div class="relative ml-2 search-container">
-                <input type="text" id="searchInput" placeholder="Поиск..." 
-                       class="bg-gray-700 bg-opacity-50 text-white px-4 py-1 rounded-full text-sm 
-                              focus:outline-none focus:ring-1 focus:ring-white focus:bg-opacity-70
-                              w-24 sm:w-40 transition-all duration-300 placeholder-gray-300">
-                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
-                    <i class="fas fa-search"></i>
-                </button>
-                <!-- Результаты поиска -->
-                <div id="searchResults" class="search-results-dropdown hidden"></div>
-            </div>
-        </nav>
-    </div>
-</header>
+    <!-- УПРАВЛЯЮЩИЕ РАДИОКНОПКИ -->
+    <input type="radio" name="author-filter" id="author-all" class="author-filter-radio" checked>
+    <input type="radio" name="author-filter" id="author-ksenya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-sonya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-varya" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-max" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-noam" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-mia" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-shelli" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-dasha" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-blunder" class="author-filter-radio">
+    <input type="radio" name="author-filter" id="author-elena" class="author-filter-radio">
 
-<!-- Контент страницы -->
+    <main class="main-layout">
+        <div class="articles-column">
+            <!-- СТАТЬИ -->
 
-    <main class="container mx-auto px-4 py-8">
-        <section class="mb-12 glass-card rounded-2xl p-8">
+            <article id="post-1" class="content-block" data-author="Blunder">
+                <div class="video-container ratio-16-9">
+                    <iframe src="https://www.youtube.com/embed/8RG1msdTv68" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="text-container">
+                    <h3>Welcome!</h3>
+                    <div class="metadata">
+                        <a href="index.html"><i class="metadata-icon icon-category"></i>Главная</a>
+                        <label for="author-blunder" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Blunder</label>
+                        <span><i class="metadata-icon icon-date"></i>2025-07-01</span>
+                    </div>
+                    <div class="content-wrapper"><p>Мы запускаем первый молодёжный русскоязычный телеканал в Израиле "Nisha TV". Будем вместе учиться создавать уникальный контент, который вдохновляет и объединяет. У нас, конечно, пока нет таких возможностей, как у телеканалов, где работают только профессионалы. Но шаг за шагом, мы будем сочетать современные технологии видеопроизводства с креативным подходом подростков, чтобы занять свою нишу. Недеемся, что с нами каждый сможет найти, что ему по душе.</p></div>
+                </div>
+            </article>
 
-            <div class="glass-card rounded-xl p-6 mb-8">
-                <p class="text-lg mb-4 text-gray-300">
-                    
-                <iframe width="1076" height="605" src="https://www.youtube.com/embed/GwvvRNspbrk" title="Nisha TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            Nisha TV - это молодёжный рускоязычный телеканал в Израиле, создающий уникальный контент, который вдохновляет и объединяет.
-                    Мы сочетаем современные технологии видеопроизводства с креативным подходом. С нами каждый может найти, что ему по душе:</p>
-            </div>
-            
-            <!-- Блок с описанием рубрик -->
-<section class="mb-16">
-  <h2 class="text-3xl font-bold text-center mb-10 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Рубрики Nisha TV</h2>
-  
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto px-4">
-    <!-- Аниме -->
-    <a href="anime.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-dragon text-3xl mr-4 text-purple-400"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Аниме</h3>
-        <p class="text-gray-400">Обзоры аниме-сериалов, аналитика и новинки сезона.</p>
-      </div>
-    </a>
+         <div id="digest-articles-container" class="articles-column"><!-- Этот блок остается пустым. Магия произойдет здесь. --></div>  
 
-    <!-- Игры -->
-    <a href="games.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-gamepad text-3xl mr-4 text-yellow-300"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Игры</h3>
-        <p class="text-gray-400">Обзоры игр, стримы с прохождением и лайфхаками.</p>
-      </div>
-    </a>
-
-    <!-- Мода -->
-    <a href="fashion.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-tshirt text-3xl mr-4 text-pink-400"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Мода</h3>
-        <p class="text-gray-400">Стильные луки и советы по выбору одежды и аксессуаров.</p>
-      </div>
-    </a>
-
-    <!-- Музыка -->
-    <a href="music.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-music text-3xl mr-4 text-blue-400"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Музыка</h3>
-        <p class="text-gray-400">Эксклюзивные интервью с музыкантами и продюсерами.</p>
-      </div>
-    </a>
-
-    <!-- Кино -->
-    <a href="movies.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-film text-3xl mr-4 text-red-400"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Кино</h3>
-        <p class="text-gray-400">От классики до новинок проката, рецензии на фильмы и советы для тех, кто собрался снимать своё кино.</p>
-      </div>
-    </a>
-
-    <!-- Нетания -->
-    <a href="netanya.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-umbrella-beach text-3xl mr-4 text-green-300"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Нетания</h3>
-        <p class="text-gray-400">Время знакомиться и открывать новые места! Мы рассказываем и показываем наш город и его жителей.</p>
-      </div>
-    </a>
-
-    <!-- Отношения -->
-    <a href="relationships.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-smile text-3xl mr-4 text-yellow-300"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Отношения</h3>
-        <p class="text-gray-400">Почему подросткам сложно с родителями? Как строить отношения? Давайте вместе изучать психологию!</p>
-      </div>
-    </a>
-
-    <!-- Театр -->
-    <a href="theater.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-theater-masks text-3xl mr-4 text-orange-400"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Театр</h3>
-        <p class="text-gray-400">Спектакли и актёры, секреты и события театральной жизни. Эксклюзивыне интервью и редкие записи.</p>
-      </div>
-    </a>
-
-    <!-- Школа -->
-    <a href="school.html" class="glass-card rounded-xl p-6 flex items-start hover:bg-opacity-70 transition-all duration-300">
-      <i class="fas fa-graduation-cap text-3xl mr-4 text-cyan-400"></i>
-      <div>
-        <h3 class="font-bold text-lg text-white">Школа</h3>
-        <p class="text-gray-400">Сложности обучения и путь к победам, особенности израильских школ и демократическое образование.</p>
-      </div>
-    </a>
-  </div>
-</section>
-
-        <h2 class="text-3xl font-bold mb-8 text-center text-white">Этапы создания телеканала</h2>
-        
-        <div class="content-grid grid grid-cols-1 gap-8">
-            <!-- Этап 1 -->
-            <div class="stage-card glass-card rounded-xl p-6 border-l-4 border-purple-500">
-                <div class="flex items-center mb-4">
-                    <div class="bg-purple-400 bg-opacity-20 text-purple-400 rounded-full w-10 h-10 flex items-center justify-center mr-4">
-                        <span class="font-bold">1</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Цель, задачи и название канала</h3>
+            <article id="post-2" class="content-block" data-author="Елена Саханова">
+                <div class="video-container ratio-16-9">
+                    <iframe src="https://www.youtube.com/embed/0TvzCNByyPg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
-                <ul class="space-y-2 text-gray-300">
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
-                        <span>Знакомство друг с другом, представление проекта (8 мая)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
-                        <span>Исследование интересов и потребностей команды (8, 15 мая)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
-                        <span>Формулировка миссии и целей канала (15, 22 мая)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
-                        <span>Определение ключевых рубрик (22, 29 мая)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
-                        <span>Выбор названия телеканала (22, 29 мая)</span>
-                    </li>
-                </ul>
-                <div class="mt-4">
-                    <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Brainstorming" class="rounded-lg w-full h-48 object-cover">
+                <div class="text-container">
+                    <h3>Начало</h3>
+                    <div class="metadata">
+                        <a href="index.html"><i class="metadata-icon icon-category"></i>Главная</a>
+                        <label for="author-elena" class="author-filter-trigger"><i class="metadata-icon icon-author"></i>Елена Саханова</label>
+                        <span><i class="metadata-icon icon-date"></i>2025-06-30</span>
+                    </div>
+                    <div class="content-wrapper"><p>День добрый! Начало. Это всегда волнительно и интересно! Я мечтала создать молодёжное ТВ в АРТ Нише Нетания... и вот. Сбывается. Это наше первое ток шоу. На видео те подростки, которые смогли собраться в военное время и поделиться с нами и с вами чувствами, мыслями, эмоциями. Скоро мы начнём наши постоянные выпуски. А пока - вот.</p></div>
                 </div>
-            </div>
-            
-            <!-- Этап 2 -->
-            <div class="stage-card glass-card rounded-xl p-6 border-l-4 border-blue-500">
-                <div class="flex items-center mb-4">
-                    <div class="bg-blue-400 bg-opacity-20 text-blue-400 rounded-full w-10 h-10 flex items-center justify-center mr-4">
-                        <span class="font-bold">2</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Распределение обязанностей (29 мая, 5 июня)</h3>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
-                    <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-microphone-alt text-purple-400 mr-2"></i>
-                        <span class="font-medium">Тележурналисты:</span> ведение новостей, интервьюирование
-                    </div>
-                    <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-edit text-blue-400 mr-2"></i>
-                        <span class="font-medium">Редактор:</span> контроль за качеством контента
-                    </div>
-                    <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-user-tie text-green-400 mr-2"></i>
-                        <span class="font-medium">Продюсер:</span> руководство, координация (Елена)
-                    </div>
-                    <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-video text-red-400 mr-2"></i>
-                        <span class="font-medium">Оператор:</span> съемка видео (Илья)
-                    </div>
-                    <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-volume-up text-yellow-400 mr-2"></i>
-                        <span class="font-medium">Звукорежиссёр:</span> работа со звуком
-                    </div>
-                    <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-cut text-pink-400 mr-2"></i>
-                        <span class="font-medium">Монтажёр:</span> нарезка материала
-                    </div>
-                    <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-scroll text-indigo-400 mr-2"></i>
-                        <span class="font-medium">Сценарист:</span> написание сценариев
-                    </div>
-                    <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-paint-brush text-teal-400 mr-2"></i>
-                        <span class="font-medium">Дизайнер:</span> создание оформления
-                    </div>
-                                     <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-edit text-blue-400 mr-2"></i>
-                        <span class="font-medium">Программисты:</span> разработка сайта
-                    </div>
-                                     <div class="feature-card p-3 rounded-lg">
-                        <i class="fas fa-user-tie text-green-400 mr-2"></i>
-                        <span class="font-medium">Пиарщики:</span> распостранение в социальных сетях
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Teamwork" class="rounded-lg w-full h-48 object-cover">
-                </div>
-            </div>
-            
-            <!-- Этап 3 -->
-            <div class="stage-card glass-card rounded-xl p-6 border-l-4 border-green-500">
-                <div class="flex items-center mb-4">
-                    <div class="bg-green-400 bg-opacity-20 text-green-400 rounded-full w-10 h-10 flex items-center justify-center mr-4">
-                        <span class="font-bold">3</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Съёмка и обмен контентом</h3>
-                </div>
-                <ul class="space-y-2 text-gray-300">
-                    <li class="flex items-start">
-                        <i class="fas fa-camera text-purple-400 mt-1 mr-2"></i>
-                        <span>Выбор оборудования: камеры, свет, и запись звука (8, 15, 22 мая)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-video text-blue-400 mt-1 mr-2"></i>
-                        <span>Создание студии. Обустройство студийного пространства (15, 22 мая)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-film text-green-400 mt-1 mr-2"></i>
-                        <span>Проведение репортажей, интервью, съемка постановок (15 мая и 19 июня)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-scroll text-yellow-400 mt-1 mr-2"></i>
-                        <span>Написание сценариев и сюжетов (5, 12, 19 июня)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-shield-alt text-red-400 mt-1 mr-2"></i>
-                        <span>Установление редакционной политики и стандартов качества (29 мая, 5 июня)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fab fa-telegram text-blue-400 mt-1 mr-2"></i>
-                        <span>Использование Телеграмм и файлообменников для системы хранения (с 15 мая)</span>
-                    </li>
-                </ul>
-                <div class="mt-4">
-                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Video recording" class="rounded-lg w-full h-48 object-cover">
-                </div>
-            </div>
-            
-            <!-- Этап 4 -->
-            <div class="stage-card glass-card rounded-xl p-6 border-l-4 border-yellow-500">
-                <div class="flex items-center mb-4">
-                    <div class="bg-yellow-400 bg-opacity-20 text-yellow-400 rounded-full w-10 h-10 flex items-center justify-center mr-4">
-                        <span class="font-bold">4</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Подготовка контента</h3>
-                </div>
-                <ul class="space-y-2 text-gray-300">
-                    <li class="flex items-start">
-                        <i class="fas fa-calendar-alt text-purple-400 mt-1 mr-2"></i>
-                        <span>Определение времени выхода программ и форматов</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-laptop-code text-blue-400 mt-1 mr-2"></i>
-                        <span>Программное обеспечение для видеомонтажа, графики</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-cut text-green-400 mt-1 mr-2"></i>
-                        <span>Монтаж репортажей и интервью из отснятого контента</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-paint-brush text-yellow-400 mt-1 mr-2"></i>
-                        <span>Разработка логотипа и заставок оформления телеканала (5, 12 июня)</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-clipboard-check text-red-400 mt-1 mr-2"></i>
-                        <span>Утверждение шаблонов монтажа для программ:</span>
-                    </li>
-                </ul>
-                <div class="mt-4 flex justify-center">
-                    <div class="glass-card p-4 rounded-lg w-full max-w-md">
-                                                <div class="grid grid-cols-2 gap-2 text-gray-300">
-                              <div class="flex items-center">
-                                <i class="fas fa-scissors text-orange-400 mr-2"></i>
-                                <span>CapCut</span>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-film text-purple-400 mr-2"></i>
-                                <span>DaVinci Resolve</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Этап 5 -->
-            <div class="stage-card glass-card rounded-xl p-6 border-l-4 border-red-500">
-                <div class="flex items-center mb-4">
-                    <div class="bg-red-400 bg-opacity-20 text-red-400 rounded-full w-10 h-10 flex items-center justify-center mr-4">
-                        <span class="font-bold">5</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Тестирование и запуск 1 июля 2025</h3>
-                </div>
-                <ul class="space-y-2 text-gray-300">
-                    <li class="flex items-start">
-                        <i class="fas fa-broadcast-tower text-purple-400 mt-1 mr-2"></i>
-                        <span>Проведение тестовых эфиров в июне</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-headphones text-blue-400 mt-1 mr-2"></i>
-                        <span>Проверка качества звука и изображения</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-comments text-green-400 mt-1 mr-2"></i>
-                        <span>Сбор отзывов от фокус группы перед публикацией</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-rocket text-yellow-400 mt-1 mr-2"></i>
-                        <span>Запуск канала. Официальное открытие с пресс-релизом</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-share-alt text-red-400 mt-1 mr-2"></i>
-                        <span>Реклама через социальные сети, сотрудничество с блогерами</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-chart-line text-indigo-400 mt-1 mr-2"></i>
-                        <span>Анализ результатов. Составление плана продвижение и развития</span>
-                    </li>
-                </ul>
-                <div class="mt-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white p-4 rounded-lg text-center glass-card">
-                    <h4 class="font-bold text-xl mb-2">Обратный отсчёт до запуска!</h4>
-                    <div class="flex justify-center space-x-4" id="countdown">
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="days">00</div>
-                            <div class="text-sm">дней</div>
-                        </div>
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="hours">00</div>
-                            <div class="text-sm">часов</div>
-                        </div>
-                        <div class="countdown-item text-center px-4 py-2 rounded-lg">
-                            <div class="text-3xl font-bold" id="minutes">00</div>
-                            <div class="text-sm">минут</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Этап 6 -->
-            <div class="stage-card glass-card rounded-xl p-6 border-l-4 border-indigo-500">
-                <div class="flex items-center mb-4">
-                    <div class="bg-indigo-400 bg-opacity-20 text-indigo-400 rounded-full w-10 h-10 flex items-center justify-center mr-4">
-                        <span class="font-bold">6</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Развитие и масштабирование</h3>
-                </div>
-                <ul class="space-y-2 text-gray-300">
-                    <li class="flex items-start">
-                        <i class="fas fa-users text-purple-400 mt-1 mr-2"></i>
-                        <span>Расширение команды и привлечение новых талантов</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-chart-pie text-blue-400 mt-1 mr-2"></i>
-                        <span>Анализ статистики просмотров и вовлечённости аудитории</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-lightbulb text-green-400 mt-1 mr-2"></i>
-                        <span>Разработка новых форматов и рубрик на основе обратной связи</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-handshake text-yellow-400 mt-1 mr-2"></i>
-                        <span>Сотрудничество с другими медиа и брендами</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-globe text-red-400 mt-1 mr-2"></i>
-                        <span>Расширение географии вещания и охвата аудитории</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-trophy text-indigo-400 mt-1 mr-2"></i>
-                        <span>Участие в профессиональных конкурсах и фестивалях</span>
-                    </li>
-                </ul>
-                <div class="mt-4">
-                    
-                </div>
-            </div>
+            </article>
         </div>
-    </main>
 
-</body>
-    <script src="search.js" defer></script>
-<script src="menu.js" defer></script>
-<script src="start.js" defer></script>
-        <script src="https://cdn.tailwindcss.com "></script>
-        <footer class="glass-card py-8 mt-12">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <h3 class="text-xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Nisha TV</h3>
-                    <p class="text-gray-400">Русскоязычное молодёжное телевидение Израиля</p>
-                </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="glass-card hover:bg-purple-500 hover:bg-opacity-20 text-white p-3 rounded-full transition-colors">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                    <a href="#" class="glass-card hover:bg-red-500 hover:bg-opacity-20 text-white p-3 rounded-full transition-colors">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="#" class="glass-card hover:bg-blue-500 hover:bg-opacity-20 text-white p-3 rounded-full transition-colors">
-                        <i class="fab fa-vk"></i>
-                    </a>
-                    <a href="#" class="glass-card hover:bg-pink-500 hover:bg-opacity-20 text-white p-3 rounded-full transition-colors">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
-                <p>© 2025 Nisha TV. Все права защищены.</p>
-            </div>
+        <!-- ПОДВАЛ -->
+        <nav class="sidebar-footer" aria-label="Навигация по странице">
+            
+            <a href="video.html" class="animated-video-link">
+        <div class="play-icon"></div>
+        <div class="text-container">
+            <span class="word-1">репортажи</span>
+            <span class="word-2">интервью</span>
+            <span class="word-3">передачи</span>
         </div>
+    </a>
+
+            <div class="category-slider-container"><div class="category-slider"><div class="slider-track"></div></div></div>       
+       <br>     
+       <div class="search-container">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input type="search" id="search-input" placeholder="Поиск по статьям...">
+    <button id="search-clear-btn" class="search-clear-btn" aria-label="Очистить поиск">×</button>
+</div>       
+            <!-- БЛОКИ С ИНФОРМАЦИЕЙ ОБ АВТОРАХ -->
+<div id="bio-cards-container"></div>
+<!-- Место для автоматической вставки оглавления -->
+<ul id="table-of-contents-container" class="table-of-contents"></ul>
+            <div class="reset-button-container">
+                <div class="footer-controls">
+                    <label for="author-all" class="reset-button">Все авторы</label>
+                    <a href="#page-top" class="scroll-top-button" aria-label="Наверх"></a>
+                </div>
+            </div>
+
+            <div class="social-icons">
+                <a href="#" class="icon-youtube" aria-label="YouTube"></a>
+                <a href="#" class="icon-facebook" aria-label="Facebook"></a>
+                <a href="#" class="icon-telegram" aria-label="Telegram"></a>
+                <a href="#" class="icon-whatsapp" aria-label="WhatsApp"></a>
+            </div>
+                <footer class="copyright-footer">
+                <p>© Nisha TV <span id="current-year"></span></p>
     </footer>
+         </nav>
+ </main>
+
+<script src="script.js"></script>
+<script src="builder.js"></script>
+<script src="search.js"></script>
+<script> document.getElementById('current-year').textContent = new Date().getFullYear(); </script>
+</body>
 </html>
